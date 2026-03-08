@@ -40,7 +40,6 @@ const App = () => (
               <Route path="/dentists" element={<DentistListing />} />
               <Route path="/dentists/:id" element={<DentistProfile />} />
               <Route path="/treatments" element={<Treatments />} />
-              <Route path="/home-consultation" element={<HomeConsultation />} />
               <Route path="/patient-portal" element={
                 <ProtectedRoute allowedRole="patient"><PatientPortal /></ProtectedRoute>
               } />

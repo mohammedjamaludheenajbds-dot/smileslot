@@ -217,6 +217,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "tab.medical": "மருத்துவம்",
     "tab.dental": "பல்",
     "tab.booking": "முன்பதிவு",
+    "tab.homeConsult": "வீட்டு வருகை",
     "tab.records": "பதிவுகள்",
     "tab.medications": "மருந்துகள்",
     "tab.reviews": "மதிப்பீடுகள்",
