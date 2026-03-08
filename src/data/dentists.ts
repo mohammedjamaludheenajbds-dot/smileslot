@@ -60,7 +60,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Dr+O+N+Ravi+Dental+Care+Center+Erode",
     achievements: ["Senior most Dentist in Erode - Since 1987", "6-chair multispecialty dental clinic", "Over 4,00,000 happy patients treated", "In-house X-rays & dental laboratory"],
     treatments: ["Oral & Maxillofacial Surgery", "Invisible Braces", "Teeth Whitening", "Dental Implants", "Laser Dentistry", "Wisdom Tooth Extraction", "Children Dentistry", "Smile Designing"],
-    about: "Dr. O.N. Ravi Dental Care Center has been providing dental care since 1987 with 5 doctors and lab technicians, featuring advanced equipment and in-house X-rays & laboratory."
+    about: "Dr. O.N. Ravi Dental Care Center has been providing dental care since 1987 with 5 doctors and lab technicians, featuring advanced equipment and in-house X-rays & laboratory.",
+    emiAvailable: true
   },
   {
     id: "dr-divakar",
