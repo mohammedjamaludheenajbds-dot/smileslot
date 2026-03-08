@@ -19,6 +19,7 @@ const Navbar = () => {
     { to: "/", label: t("nav.home"), show: true },
     { to: "/dentists", label: t("nav.findDentists"), show: true },
     { to: "/treatments", label: t("nav.treatments"), show: true },
+    { to: "/home-consultation", label: t("nav.homeConsult"), show: true },
     { to: "/patient-portal", label: t("nav.patientPortal"), show: role === "patient" },
     { to: "/dentist-portal", label: t("nav.doctorPortal"), show: role === "doctor" },
   ].filter((l) => l.show);
