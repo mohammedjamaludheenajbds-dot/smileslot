@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import DentistCard from "@/components/DentistCard";
-import { dentists } from "@/data/dentists";
+import { dentists, type Dentist } from "@/data/dentists";
+import { supabase } from "@/integrations/supabase/client";
 
 const areas = ["All", "Perundurai Road", "EVN Road", "Erode Fort", "Erode Town", "Brough Road", "Gandhiji Road", "Mettur Road", "Sathy Road", "Surampatti", "Karungalpalayam", "Bhavani", "Gobichettipalayam", "Anthiyur", "Dharapuram", "Perundurai", "Komarapalayam", "Salem"];
 const specs = ["All", "General", "Endodontics", "Orthodontics", "Prosthodontics", "Oral Surgery", "Periodontics", "Pediatric", "Implantology", "Cosmetic", "Laser", "Diagnostics"];
@@ -13,8 +14,45 @@ const DentistListing = () => {
   const [area, setArea] = useState("All");
   const [spec, setSpec] = useState("All");
   const [emiOnly, setEmiOnly] = useState(false);
+  const [dbDentists, setDbDentists] = useState<Dentist[]>([]);
 
-  const filtered = dentists.filter((d) => {
+  useEffect(() => {
+    const fetchApprovedClinics = async () => {
+      const { data } = await supabase
+        .from("clinics")
+        .select("*")
+        .eq("status", "approved");
+      if (data) {
+        const mapped: Dentist[] = data.map((c: any) => ({
+          id: `db-${c.id}`,
+          name: c.doctor_name,
+          qualification: c.qualification || "",
+          specialization: c.specialization || "",
+          experience: c.experience || 0,
+          rating: 4.5,
+          reviewCount: 0,
+          clinicName: c.clinic_name,
+          address: c.address || "",
+          area: c.area || "",
+          phone: c.phone || "",
+          whatsapp: c.whatsapp || "",
+          website: c.website || "",
+          image: "/placeholder.svg",
+          googleMapsUrl: c.google_maps_url || "",
+          achievements: c.achievements ? c.achievements.split("\n").filter(Boolean) : [],
+          treatments: c.treatments ? c.treatments.split(",").map((t: string) => t.trim()).filter(Boolean) : [],
+          about: c.about || "",
+          emiAvailable: c.emi_available || false,
+        }));
+        setDbDentists(mapped);
+      }
+    };
+    fetchApprovedClinics();
+  }, []);
+
+  const allDentists = [...dentists, ...dbDentists];
+
+  const filtered = allDentists.filter((d) => {
     const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.clinicName.toLowerCase().includes(search.toLowerCase());
     const matchArea = area === "All" || d.area === area;
     const matchSpec = spec === "All" || d.specialization.toLowerCase().includes(spec.toLowerCase());
