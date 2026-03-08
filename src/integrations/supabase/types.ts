@@ -150,7 +150,9 @@ export type Database = {
         Row: {
           clinic_name: string
           created_at: string
+          dci_certificate_url: string
           id: string
+          id_proof_url: string
           name: string
           phone: string
           specialization: string
@@ -159,7 +161,9 @@ export type Database = {
         Insert: {
           clinic_name: string
           created_at?: string
+          dci_certificate_url?: string
           id?: string
+          id_proof_url?: string
           name: string
           phone: string
           specialization?: string
@@ -168,7 +172,9 @@ export type Database = {
         Update: {
           clinic_name?: string
           created_at?: string
+          dci_certificate_url?: string
           id?: string
+          id_proof_url?: string
           name?: string
           phone?: string
           specialization?: string

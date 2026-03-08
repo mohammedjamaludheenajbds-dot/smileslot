@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/authStore";
 import { supabase } from "@/integrations/supabase/client";
-import { Stethoscope, User, Home, Loader2 } from "lucide-react";
+import { Stethoscope, User, Home, Loader2, Upload, FileCheck, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
@@ -15,9 +15,22 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [clinicName, setClinicName] = useState("");
   const [specialization, setSpecialization] = useState("");
+  const [dciFile, setDciFile] = useState<File | null>(null);
+  const [idProofFile, setIdProofFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const dciInputRef = useRef<HTMLInputElement>(null);
+  const idInputRef = useRef<HTMLInputElement>(null);
   const login = useAuthStore((s) => s.login);
   const navigate = useNavigate();
+
+  const uploadFile = async (file: File, folder: string): Promise<string> => {
+    const ext = file.name.split(".").pop();
+    const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error } = await supabase.storage.from("doctor-documents").upload(path, file);
+    if (error) throw error;
+    const { data: urlData } = supabase.storage.from("doctor-documents").getPublicUrl(path);
+    return urlData.publicUrl;
+  };
 
   const handleLogin = async () => {
     if (!selectedRole || !name.trim()) {
@@ -30,6 +43,7 @@ const Login = () => {
         toast.error("Please fill in all required fields");
         return;
       }
+
       setSubmitting(true);
       // Check if already approved
       const { data: existing } = await supabase
@@ -57,20 +71,39 @@ const Login = () => {
         }
       }
 
-      // Submit new application
-      const { error } = await supabase.from("doctor_applications").insert({
-        name: name.trim(),
-        phone: phone.trim(),
-        clinic_name: clinicName.trim(),
-        specialization: specialization.trim(),
-      });
-      setSubmitting(false);
-
-      if (error) {
-        toast.error("Failed to submit application");
+      // Validate document uploads
+      if (!dciFile || !idProofFile) {
+        toast.error("Please upload both your DCI certificate and ID proof to apply");
+        setSubmitting(false);
         return;
       }
-      toast.success("Application submitted! You'll get access once the admin approves.");
+
+      // Upload documents
+      try {
+        const [dciUrl, idUrl] = await Promise.all([
+          uploadFile(dciFile, "dci-certificates"),
+          uploadFile(idProofFile, "id-proofs"),
+        ]);
+
+        const { error } = await supabase.from("doctor_applications").insert({
+          name: name.trim(),
+          phone: phone.trim(),
+          clinic_name: clinicName.trim(),
+          specialization: specialization.trim(),
+          dci_certificate_url: dciUrl,
+          id_proof_url: idUrl,
+        });
+
+        setSubmitting(false);
+        if (error) {
+          toast.error("Failed to submit application");
+          return;
+        }
+        toast.success("Application submitted with documents! You'll get access once the admin verifies and approves.");
+      } catch (err: any) {
+        setSubmitting(false);
+        toast.error("Failed to upload documents: " + (err.message || "Please try again"));
+      }
       return;
     }
 
@@ -164,6 +197,77 @@ const Login = () => {
                 <div>
                   <Label>Specialization <span className="text-muted-foreground">(optional)</span></Label>
                   <Input value={specialization} onChange={(e) => setSpecialization(e.target.value)} placeholder="e.g. Orthodontics, Implants" />
+                </div>
+
+                {/* Document Uploads */}
+                <div className="rounded-xl border-2 border-dashed border-primary/30 bg-primary/5 p-4 space-y-4">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <AlertCircle className="h-4 w-4 text-primary" />
+                    Original Documents Required
+                  </div>
+                  <p className="text-xs text-muted-foreground">Upload scanned copies or clear photos of the following documents for verification.</p>
+
+                  {/* DCI Certificate */}
+                  <div className="space-y-2">
+                    <Label className="text-sm">DCI / Dental License Certificate *</Label>
+                    <input
+                      ref={dciInputRef}
+                      type="file"
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => setDciFile(e.target.files?.[0] || null)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => dciInputRef.current?.click()}
+                      className={`flex w-full items-center gap-3 rounded-lg border-2 border-dashed p-3 text-sm transition-all ${
+                        dciFile ? "border-primary bg-primary/5" : "border-muted-foreground/30 hover:border-primary/50"
+                      }`}
+                    >
+                      {dciFile ? (
+                        <>
+                          <FileCheck className="h-5 w-5 text-primary shrink-0" />
+                          <span className="truncate text-foreground font-medium">{dciFile.name}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-5 w-5 text-muted-foreground shrink-0" />
+                          <span className="text-muted-foreground">Upload DCI certificate (image or PDF)</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* ID Proof */}
+                  <div className="space-y-2">
+                    <Label className="text-sm">ID Proof (Aadhaar / PAN) *</Label>
+                    <input
+                      ref={idInputRef}
+                      type="file"
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => setIdProofFile(e.target.files?.[0] || null)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => idInputRef.current?.click()}
+                      className={`flex w-full items-center gap-3 rounded-lg border-2 border-dashed p-3 text-sm transition-all ${
+                        idProofFile ? "border-primary bg-primary/5" : "border-muted-foreground/30 hover:border-primary/50"
+                      }`}
+                    >
+                      {idProofFile ? (
+                        <>
+                          <FileCheck className="h-5 w-5 text-primary shrink-0" />
+                          <span className="truncate text-foreground font-medium">{idProofFile.name}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-5 w-5 text-muted-foreground shrink-0" />
+                          <span className="text-muted-foreground">Upload Aadhaar or PAN card (image or PDF)</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </>
             )}
