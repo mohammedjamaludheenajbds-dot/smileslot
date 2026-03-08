@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, IndianRupee, Users, Search, Lock, Stethoscope, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Shield, IndianRupee, Users, Search, Lock, Stethoscope, CheckCircle, XCircle, Clock, Building2 } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
@@ -33,12 +33,25 @@ interface DoctorApplication {
   created_at: string;
 }
 
+interface ClinicSubmission {
+  id: string;
+  doctor_name: string;
+  clinic_name: string;
+  specialization: string;
+  address: string;
+  area: string;
+  phone: string;
+  status: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
+  const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -59,15 +72,25 @@ const AdminPayments = () => {
     setApplications((data as DoctorApplication[]) || []);
   };
 
+  const fetchClinics = async () => {
+    const { data } = await supabase
+      .from("clinics")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setClinicSubs((data as ClinicSubmission[]) || []);
+  };
+
   useEffect(() => {
     if (!authenticated) return;
     setLoading(true);
     Promise.all([
       supabase.from("payments").select("*").order("created_at", { ascending: false }),
       supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
-    ]).then(([paymentsRes, appsRes]) => {
+      supabase.from("clinics").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes, clinicsRes]) => {
       setPayments((paymentsRes.data as Payment[]) || []);
       setApplications((appsRes.data as DoctorApplication[]) || []);
+      setClinicSubs((clinicsRes.data as ClinicSubmission[]) || []);
       setLoading(false);
     });
   }, [authenticated]);
@@ -112,6 +135,7 @@ const AdminPayments = () => {
   }
 
   const pendingApps = applications.filter((a) => a.status === "pending");
+  const pendingClinics = clinicSubs.filter((c) => c.status === "pending");
 
   const handleApplicationAction = async (id: string, status: "approved" | "rejected") => {
     const { error } = await supabase
@@ -124,6 +148,19 @@ const AdminPayments = () => {
     }
     toast.success(`Application ${status}`);
     fetchApplications();
+  };
+
+  const handleClinicAction = async (id: string, status: "approved" | "rejected") => {
+    const { error } = await supabase
+      .from("clinics")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Failed to update clinic");
+      return;
+    }
+    toast.success(`Clinic ${status}`);
+    fetchClinics();
   };
 
   return (
@@ -186,6 +223,17 @@ const AdminPayments = () => {
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Building2 className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Pending Clinics</p>
+              <p className="text-2xl font-bold text-foreground">{pendingClinics.length}</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs defaultValue="payments" className="space-y-4">
@@ -196,6 +244,14 @@ const AdminPayments = () => {
             {pendingApps.length > 0 && (
               <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
                 {pendingApps.length}
+              </span>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="clinics" className="relative">
+            Clinic Listings
+            {pendingClinics.length > 0 && (
+              <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                {pendingClinics.length}
               </span>
             )}
           </TabsTrigger>
@@ -311,6 +367,76 @@ const AdminPayments = () => {
                                   <CheckCircle className="mr-1 h-3 w-3" /> Approve
                                 </Button>
                                 <Button size="sm" variant="destructive" onClick={() => handleApplicationAction(a.id, "rejected")}>
+                                  <XCircle className="mr-1 h-3 w-3" /> Reject
+                                </Button>
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="clinics">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Clinic Listings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <p className="py-8 text-center text-muted-foreground">Loading...</p>
+              ) : clinicSubs.length === 0 ? (
+                <p className="py-8 text-center text-muted-foreground">No clinic submissions yet</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Doctor</TableHead>
+                        <TableHead>Clinic</TableHead>
+                        <TableHead>Specialization</TableHead>
+                        <TableHead>Area</TableHead>
+                        <TableHead>Phone</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {clinicSubs.map((c, i) => (
+                        <TableRow key={c.id}>
+                          <TableCell className="font-medium text-muted-foreground">{i + 1}</TableCell>
+                          <TableCell className="font-medium">{c.doctor_name}</TableCell>
+                          <TableCell>{c.clinic_name}</TableCell>
+                          <TableCell>{c.specialization || "—"}</TableCell>
+                          <TableCell>{c.area || "—"}</TableCell>
+                          <TableCell>{c.phone}</TableCell>
+                          <TableCell>
+                            <Badge variant={c.status === "approved" ? "default" : c.status === "rejected" ? "destructive" : "secondary"}>
+                              {c.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
+                              {c.status === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
+                              {c.status === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
+                              {c.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground">
+                            {format(new Date(c.created_at), "dd MMM yyyy")}
+                          </TableCell>
+                          <TableCell>
+                            {c.status === "pending" ? (
+                              <div className="flex gap-2">
+                                <Button size="sm" onClick={() => handleClinicAction(c.id, "approved")}>
+                                  <CheckCircle className="mr-1 h-3 w-3" /> Approve
+                                </Button>
+                                <Button size="sm" variant="destructive" onClick={() => handleClinicAction(c.id, "rejected")}>
                                   <XCircle className="mr-1 h-3 w-3" /> Reject
                                 </Button>
                               </div>
