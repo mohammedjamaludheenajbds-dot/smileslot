@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { MapPin, Phone, Globe, Award, Clock, MessageCircle, ArrowLeft } from "lucide-react";
+import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
@@ -54,13 +54,9 @@ const DentistProfile = () => {
               <Clock className="h-4 w-4 text-primary" />
               <span className="text-foreground">{dentist.experience} yrs exp</span>
             </div>
-            <button onClick={() => window.open(`tel:${dentist.phone}`)} className="flex items-center gap-2 rounded-lg bg-secondary p-3 text-sm hover:bg-primary/10 transition-colors">
-              <Phone className="h-4 w-4 text-primary" />
-              <span className="text-foreground">{dentist.phone}</span>
-            </button>
-            <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
+            <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to know more about your clinic.`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
               <MessageCircle className="h-4 w-4 text-success" />
-              <span className="text-foreground">WhatsApp</span>
+              <span className="text-foreground">WhatsApp Chat</span>
             </button>
           </div>
 
@@ -101,12 +97,10 @@ const DentistProfile = () => {
             </div>
           </div>
 
-          <div className="mt-8 flex gap-3">
-            <Button size="lg" className="flex-1" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
-              Book Appointment via WhatsApp
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => window.open(`tel:${dentist.phone}`)}>
-              Call Now
+          <div className="mt-8">
+            <Button size="lg" className="w-full" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Chat on WhatsApp
             </Button>
           </div>
         </motion.div>
