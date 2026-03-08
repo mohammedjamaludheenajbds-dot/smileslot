@@ -38,6 +38,7 @@ const AdminPayments = () => {
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [payments, setPayments] = useState<Payment[]>([]);
+  const [applications, setApplications] = useState<DoctorApplication[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -50,17 +51,25 @@ const AdminPayments = () => {
     }
   };
 
+  const fetchApplications = async () => {
+    const { data } = await supabase
+      .from("doctor_applications")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setApplications((data as DoctorApplication[]) || []);
+  };
+
   useEffect(() => {
     if (!authenticated) return;
     setLoading(true);
-    supabase
-      .from("payments")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
-        setPayments((data as Payment[]) || []);
-        setLoading(false);
-      });
+    Promise.all([
+      supabase.from("payments").select("*").order("created_at", { ascending: false }),
+      supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes]) => {
+      setPayments((paymentsRes.data as Payment[]) || []);
+      setApplications((appsRes.data as DoctorApplication[]) || []);
+      setLoading(false);
+    });
   }, [authenticated]);
 
   const filtered = payments.filter(
