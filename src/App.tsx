@@ -13,6 +13,7 @@ import PatientPortal from "./pages/PatientPortal";
 import DentistPortal from "./pages/DentistPortal";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import HomeConsultation from "./pages/HomeConsultation";
 import AIChatBot from "./components/AIChatBot";
 import { useAuthStore } from "./stores/authStore";
 
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/dentists" element={<DentistListing />} />
               <Route path="/dentists/:id" element={<DentistProfile />} />
               <Route path="/treatments" element={<Treatments />} />
+              <Route path="/home-consultation" element={<HomeConsultation />} />
               <Route path="/patient-portal" element={
                 <ProtectedRoute allowedRole="patient"><PatientPortal /></ProtectedRoute>
               } />

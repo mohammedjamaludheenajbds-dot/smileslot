@@ -8,8 +8,24 @@ export const translations: Record<Language, Record<string, string>> = {
     "nav.treatments": "Treatments",
     "nav.patientPortal": "Patient Portal",
     "nav.doctorPortal": "Doctor Portal",
+    "nav.homeConsult": "Home Consultation",
     "nav.login": "Login",
     "nav.logout": "Logout",
+
+    // Home Consultation
+    "homeConsult.title": "Home Consultation",
+    "homeConsult.subtitle": "Request a dentist home visit for elderly or handicapped patients",
+    "homeConsult.infoTitle": "For Patients Who Cannot Visit a Clinic",
+    "homeConsult.infoDesc": "Fill out this form to request a home visit from a qualified dentist. Our team will review your request and connect you with an available dentist.",
+    "homeConsult.name": "Patient Name *",
+    "homeConsult.age": "Age *",
+    "homeConsult.sex": "Sex *",
+    "homeConsult.phone": "Phone Number *",
+    "homeConsult.address": "Full Address *",
+    "homeConsult.condition": "Condition / Suffering *",
+    "homeConsult.treatment": "Treatment Required *",
+    "homeConsult.submit": "Submit Home Visit Request",
+    "homeConsult.success": "Your home consultation request has been submitted! A dentist will contact you soon.",
 
     // Index
     "hero.title1": "Find & Book Your",
@@ -155,8 +171,24 @@ export const translations: Record<Language, Record<string, string>> = {
     "nav.treatments": "சிகிச்சைகள்",
     "nav.patientPortal": "நோயாளி போர்டல்",
     "nav.doctorPortal": "மருத்துவர் போர்டல்",
+    "nav.homeConsult": "வீட்டு ஆலோசனை",
     "nav.login": "உள்நுழைக",
     "nav.logout": "வெளியேறு",
+
+    // Home Consultation
+    "homeConsult.title": "வீட்டு ஆலோசனை",
+    "homeConsult.subtitle": "முதியவர் அல்லது ஊனமுற்ற நோயாளிகளுக்கு பல் மருத்துவர் வீட்டு வருகை கோரிக்கை",
+    "homeConsult.infoTitle": "மருத்துவமனைக்கு வர இயலாத நோயாளிகளுக்கு",
+    "homeConsult.infoDesc": "தகுதிவாய்ந்த பல் மருத்துவரிடம் வீட்டு வருகை கோர இந்தப் படிவத்தை நிரப்பவும்.",
+    "homeConsult.name": "நோயாளி பெயர் *",
+    "homeConsult.age": "வயது *",
+    "homeConsult.sex": "பாலினம் *",
+    "homeConsult.phone": "தொலைபேசி எண் *",
+    "homeConsult.address": "முழு முகவரி *",
+    "homeConsult.condition": "நிலை / பாதிப்பு *",
+    "homeConsult.treatment": "தேவையான சிகிச்சை *",
+    "homeConsult.submit": "வீட்டு வருகை கோரிக்கையை சமர்ப்பிக்கவும்",
+    "homeConsult.success": "உங்கள் வீட்டு ஆலோசனை கோரிக்கை சமர்ப்பிக்கப்பட்டது! ஒரு பல் மருத்துவர் விரைவில் உங்களைத் தொடர்புகொள்வார்.",
 
     // Index
     "hero.title1": "உங்கள் பல்",
