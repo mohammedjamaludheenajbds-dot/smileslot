@@ -1221,7 +1221,12 @@ export const treatments: Treatment[] = [
       { name: "Self-Ligating (Damon)", type: "Premium", costAddon: 20000, description: "Advanced system requiring fewer adjustments and less friction" },
       { name: "Lingual Braces", type: "Invisible", costAddon: 40000, description: "Placed behind teeth - completely hidden from view" }
     ],
-    duration: "12-24 months"
+    duration: "12-24 months",
+    images: [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600"
+    ],
+    youtubeId: "GVEAH4JxVK0"
   },
   {
     id: "teeth-whitening",
