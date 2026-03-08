@@ -16,6 +16,19 @@ const Navbar = () => {
   const { role, name, isLoggedIn, logout } = useAuthStore();
   const { t } = useLanguageStore();
   const { total: unreadTotal } = useUnreadChats();
+  const tapCount = useRef(0);
+  const tapTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  const handleLogoTap = useCallback(() => {
+    tapCount.current += 1;
+    clearTimeout(tapTimer.current);
+    if (tapCount.current >= 5) {
+      tapCount.current = 0;
+      navigate("/admin-payments");
+    } else {
+      tapTimer.current = setTimeout(() => { tapCount.current = 0; }, 1500);
+    }
+  }, [navigate]);
 
   const navLinks = [
     { to: "/", label: t("nav.home"), show: true },
