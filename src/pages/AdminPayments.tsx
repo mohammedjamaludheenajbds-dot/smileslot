@@ -72,6 +72,14 @@ const AdminPayments = () => {
     setApplications((data as DoctorApplication[]) || []);
   };
 
+  const fetchClinics = async () => {
+    const { data } = await supabase
+      .from("clinics")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setClinicSubs((data as ClinicSubmission[]) || []);
+  };
+
   useEffect(() => {
     if (!authenticated) return;
     setLoading(true);
