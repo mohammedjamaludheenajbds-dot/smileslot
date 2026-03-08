@@ -1274,7 +1274,12 @@ export const treatments: Treatment[] = [
       { name: "Zirconia Crown", type: "Premium", costAddon: 5000, description: "Metal-free, natural-looking, extremely strong and biocompatible" },
       { name: "E-max (Lithium Disilicate)", type: "Premium", costAddon: 7000, description: "Most aesthetic option with excellent translucency mimicking natural teeth" }
     ],
-    duration: "2-3 visits over 1-2 weeks"
+    duration: "2-3 visits over 1-2 weeks",
+    images: [
+      "https://images.unsplash.com/photo-1629909615957-be38d48fbbe4?w=600",
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600"
+    ],
+    youtubeId: "lFBMHxLe1Sk"
   },
   {
     id: "extraction",
