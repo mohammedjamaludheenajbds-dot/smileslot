@@ -56,8 +56,8 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
           className="gap-1"
           onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`, "_blank")}
         >
-          <Phone className="h-3.5 w-3.5" />
-          Call
+          <MessageCircle className="h-3.5 w-3.5" />
+          Chat
         </Button>
       </div>
     </div>

@@ -97,12 +97,10 @@ const DentistProfile = () => {
             </div>
           </div>
 
-          <div className="mt-8 flex gap-3">
-            <Button size="lg" className="flex-1" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
-              Book Appointment via WhatsApp
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => window.open(`tel:${dentist.phone}`)}>
-              Call Now
+          <div className="mt-8">
+            <Button size="lg" className="w-full" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Chat on WhatsApp
             </Button>
           </div>
         </motion.div>
