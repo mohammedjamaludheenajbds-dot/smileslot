@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
 import BookAppointmentDialog from "@/components/BookAppointmentDialog";
 import InAppChat from "@/components/InAppChat";
+import ClinicReviews from "@/components/ClinicReviews";
 import { dentists } from "@/data/dentists";
 import { motion } from "framer-motion";
 
@@ -123,6 +124,9 @@ const DentistProfile = () => {
               ))}
             </div>
           </div>
+
+          {/* Patient Reviews */}
+          <ClinicReviews dentistId={dentist.id} />
 
           <div className="mt-8 space-y-3">
             <BookAppointmentDialog dentist={dentist} />
