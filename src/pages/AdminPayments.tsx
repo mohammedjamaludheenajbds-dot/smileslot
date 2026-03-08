@@ -33,6 +33,18 @@ interface DoctorApplication {
   created_at: string;
 }
 
+interface ClinicSubmission {
+  id: string;
+  doctor_name: string;
+  clinic_name: string;
+  specialization: string;
+  address: string;
+  area: string;
+  phone: string;
+  status: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
