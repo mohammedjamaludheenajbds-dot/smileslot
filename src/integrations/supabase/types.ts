@@ -80,6 +80,72 @@ export type Database = {
         }
         Relationships: []
       }
+      clinics: {
+        Row: {
+          about: string
+          achievements: string
+          address: string
+          area: string
+          clinic_name: string
+          created_at: string
+          doctor_name: string
+          doctor_phone: string
+          emi_available: boolean
+          experience: number
+          google_maps_url: string
+          id: string
+          phone: string
+          qualification: string
+          specialization: string
+          status: string
+          treatments: string
+          website: string
+          whatsapp: string
+        }
+        Insert: {
+          about?: string
+          achievements?: string
+          address?: string
+          area?: string
+          clinic_name: string
+          created_at?: string
+          doctor_name: string
+          doctor_phone?: string
+          emi_available?: boolean
+          experience?: number
+          google_maps_url?: string
+          id?: string
+          phone?: string
+          qualification?: string
+          specialization?: string
+          status?: string
+          treatments?: string
+          website?: string
+          whatsapp?: string
+        }
+        Update: {
+          about?: string
+          achievements?: string
+          address?: string
+          area?: string
+          clinic_name?: string
+          created_at?: string
+          doctor_name?: string
+          doctor_phone?: string
+          emi_available?: boolean
+          experience?: number
+          google_maps_url?: string
+          id?: string
+          phone?: string
+          qualification?: string
+          specialization?: string
+          status?: string
+          treatments?: string
+          website?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
       doctor_applications: {
         Row: {
           clinic_name: string
