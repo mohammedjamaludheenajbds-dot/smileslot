@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import NotificationBell from "./NotificationBell";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -45,9 +46,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button size="sm" className="hidden sm:flex gap-2">
-            <Phone className="h-4 w-4" />
-            Book Now
+          <NotificationBell />
+          <Button asChild size="sm" className="hidden sm:flex gap-2">
+            <Link to="/dentists">
+              <CalendarDays className="h-4 w-4" />
+              Book Now
+            </Link>
           </Button>
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground md:hidden"
@@ -74,9 +78,11 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button size="sm" className="mt-2 w-full gap-2">
-            <Phone className="h-4 w-4" />
-            Book Now
+          <Button asChild size="sm" className="mt-2 w-full gap-2">
+            <Link to="/dentists">
+              <CalendarDays className="h-4 w-4" />
+              Book Now
+            </Link>
           </Button>
         </div>
       )}
