@@ -1167,7 +1167,12 @@ export const treatments: Treatment[] = [
       { name: "Bioceramic Sealer", type: "Premium", costAddon: 1500, description: "Advanced biocompatible sealer with superior seal and antibacterial properties" },
       { name: "MTA (Mineral Trioxide Aggregate)", type: "Premium", costAddon: 2000, description: "Gold standard for complex cases, excellent biocompatibility and sealing" }
     ],
-    duration: "45-90 minutes per sitting (1-2 sittings)"
+    duration: "45-90 minutes per sitting (1-2 sittings)",
+    images: [
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "pOLlmoBKl5E"
   },
   {
     id: "dental-implant",
