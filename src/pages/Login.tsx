@@ -4,26 +4,79 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/authStore";
-import { Stethoscope, User, Home } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Stethoscope, User, Home, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
 const Login = () => {
   const [selectedRole, setSelectedRole] = useState<"patient" | "doctor" | "home_patient" | null>(null);
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [clinicName, setClinicName] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const login = useAuthStore((s) => s.login);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!selectedRole || !name.trim()) {
       toast.error("Please select a role and enter your name");
       return;
     }
+
+    if (selectedRole === "doctor") {
+      if (!phone.trim() || !clinicName.trim()) {
+        toast.error("Please fill in all required fields");
+        return;
+      }
+      setSubmitting(true);
+      // Check if already approved
+      const { data: existing } = await supabase
+        .from("doctor_applications")
+        .select("*")
+        .eq("phone", phone.trim())
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      if (existing && existing.length > 0) {
+        const app = existing[0];
+        if (app.status === "approved") {
+          login("doctor", app.name);
+          toast.success(`Welcome back, ${app.name}!`);
+          navigate("/dentist-portal");
+          setSubmitting(false);
+          return;
+        } else if (app.status === "pending") {
+          toast.info("Your application is pending admin approval. Please wait.");
+          setSubmitting(false);
+          return;
+        } else if (app.status === "rejected") {
+          toast.error("Your previous application was rejected. Submitting a new one.");
+        }
+      }
+
+      // Submit new application
+      const { error } = await supabase.from("doctor_applications").insert({
+        name: name.trim(),
+        phone: phone.trim(),
+        clinic_name: clinicName.trim(),
+        specialization: specialization.trim(),
+      });
+      setSubmitting(false);
+
+      if (error) {
+        toast.error("Failed to submit application");
+        return;
+      }
+      toast.success("Application submitted! You'll get access once the admin approves.");
+      return;
+    }
+
     const actualRole = selectedRole === "home_patient" ? "patient" : selectedRole;
     login(actualRole, name.trim());
     toast.success(`Welcome, ${name}!`);
-    if (selectedRole === "doctor") navigate("/dentist-portal");
-    else if (selectedRole === "home_patient") navigate("/patient-portal?tab=home-consult");
+    if (selectedRole === "home_patient") navigate("/patient-portal?tab=home-consult");
     else navigate("/patient-portal");
   };
 
@@ -67,7 +120,7 @@ const Login = () => {
               <Stethoscope className="h-7 w-7 text-primary" />
             </div>
             <span className="font-display font-bold text-foreground">Doctor</span>
-            <span className="text-xs text-muted-foreground text-center">Manage clinic & prescriptions</span>
+            <span className="text-xs text-muted-foreground text-center">Apply for clinic access</span>
           </button>
 
           <button
@@ -94,11 +147,29 @@ const Login = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={selectedRole === "doctor" ? "Dr. Full Name" : "Your full name"}
-                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
               />
             </div>
-            <Button className="w-full" size="lg" onClick={handleLogin}>
-              Continue as {selectedRole === "doctor" ? "Doctor" : selectedRole === "home_patient" ? "Home Patient" : "Patient"}
+
+            {selectedRole === "doctor" && (
+              <>
+                <div>
+                  <Label>Phone Number</Label>
+                  <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Your phone number" />
+                </div>
+                <div>
+                  <Label>Clinic Name</Label>
+                  <Input value={clinicName} onChange={(e) => setClinicName(e.target.value)} placeholder="Your clinic name" />
+                </div>
+                <div>
+                  <Label>Specialization <span className="text-muted-foreground">(optional)</span></Label>
+                  <Input value={specialization} onChange={(e) => setSpecialization(e.target.value)} placeholder="e.g. Orthodontics, Implants" />
+                </div>
+              </>
+            )}
+
+            <Button className="w-full" size="lg" onClick={handleLogin} disabled={submitting}>
+              {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {selectedRole === "doctor" ? "Apply for Access" : selectedRole === "home_patient" ? "Continue as Home Patient" : "Continue as Patient"}
             </Button>
           </motion.div>
         )}
