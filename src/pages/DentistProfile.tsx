@@ -3,6 +3,7 @@ import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft, Navigation } fro
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
+import BookAppointmentDialog from "@/components/BookAppointmentDialog";
 import { dentists } from "@/data/dentists";
 import { motion } from "framer-motion";
 
