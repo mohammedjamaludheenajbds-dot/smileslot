@@ -50,7 +50,7 @@ const BookAppointmentDialog = ({ dentist, compact }: { dentist: Dentist; compact
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className="w-full gap-2">
+        <Button size={compact ? "sm" : "lg"} className="w-full gap-2">
           <CalendarDays className="h-4 w-4" />
           Book Appointment
         </Button>
