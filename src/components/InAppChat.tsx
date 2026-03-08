@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthStore } from "@/stores/authStore";
+import { markChatRead } from "@/hooks/useUnreadChats";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 

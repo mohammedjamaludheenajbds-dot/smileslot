@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import BookAppointmentDialog from "./BookAppointmentDialog";
 import InAppChat from "./InAppChat";
+import { useUnreadChats } from "@/hooks/useUnreadChats";
 import type { Dentist } from "@/data/dentists";
 
 const DentistCard = ({ dentist }: { dentist: Dentist }) => {
