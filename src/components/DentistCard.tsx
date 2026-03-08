@@ -48,7 +48,7 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
       </div>
 
       <div className="mt-4 space-y-2">
-        <BookAppointmentDialog dentist={dentist} />
+        <BookAppointmentDialog dentist={dentist} compact />
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline" className="flex-1">
             <Link to={`/dentists/${dentist.id}`}>View Profile</Link>
