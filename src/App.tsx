@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,7 @@ import DentistPortal from "./pages/DentistPortal";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import AIChatBot from "./components/AIChatBot";
+import PaymentGate, { isPaymentVerified } from "./components/PaymentGate";
 import { useAuthStore } from "./stores/authStore";
 
 const queryClient = new QueryClient();
@@ -25,33 +27,45 @@ const ProtectedRoute = ({ children, allowedRole }: { children: React.ReactNode; 
   return <>{children}</>;
 };
 
+const AppContent = () => {
+  const [paid, setPaid] = useState(isPaymentVerified());
+
+  if (!paid) {
+    return <PaymentGate onVerified={() => setPaid(true)} />;
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dentists" element={<DentistListing />} />
+          <Route path="/dentists/:id" element={<DentistProfile />} />
+          <Route path="/treatments" element={<Treatments />} />
+          <Route path="/patient-portal" element={
+            <ProtectedRoute allowedRole="patient"><PatientPortal /></ProtectedRoute>
+          } />
+          <Route path="/dentist-portal" element={
+            <ProtectedRoute allowedRole="doctor"><DentistPortal /></ProtectedRoute>
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+      <AIChatBot />
+    </div>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex min-h-screen flex-col">
-          <Navbar />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/dentists" element={<DentistListing />} />
-              <Route path="/dentists/:id" element={<DentistProfile />} />
-              <Route path="/treatments" element={<Treatments />} />
-              <Route path="/patient-portal" element={
-                <ProtectedRoute allowedRole="patient"><PatientPortal /></ProtectedRoute>
-              } />
-              <Route path="/dentist-portal" element={
-                <ProtectedRoute allowedRole="doctor"><DentistPortal /></ProtectedRoute>
-              } />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-          <AIChatBot />
-        </div>
+        <AppContent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

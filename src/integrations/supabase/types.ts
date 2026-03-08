@@ -119,6 +119,39 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          device_id: string
+          id: string
+          phone: string
+          screenshot_url: string
+          status: string
+          user_name: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          device_id: string
+          id?: string
+          phone: string
+          screenshot_url: string
+          status?: string
+          user_name: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          device_id?: string
+          id?: string
+          phone?: string
+          screenshot_url?: string
+          status?: string
+          user_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
