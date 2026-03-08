@@ -17,6 +17,7 @@ export interface Dentist {
   achievements: string[];
   treatments: string[];
   about: string;
+  emiAvailable?: boolean;
 }
 
 export interface Treatment {
@@ -59,7 +60,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Dr+O+N+Ravi+Dental+Care+Center+Erode",
     achievements: ["Senior most Dentist in Erode - Since 1987", "6-chair multispecialty dental clinic", "Over 4,00,000 happy patients treated", "In-house X-rays & dental laboratory"],
     treatments: ["Oral & Maxillofacial Surgery", "Invisible Braces", "Teeth Whitening", "Dental Implants", "Laser Dentistry", "Wisdom Tooth Extraction", "Children Dentistry", "Smile Designing"],
-    about: "Dr. O.N. Ravi Dental Care Center has been providing dental care since 1987 with 5 doctors and lab technicians, featuring advanced equipment and in-house X-rays & laboratory."
+    about: "Dr. O.N. Ravi Dental Care Center has been providing dental care since 1987 with 5 doctors and lab technicians, featuring advanced equipment and in-house X-rays & laboratory.",
+    emiAvailable: true
   },
   {
     id: "dr-divakar",
@@ -99,7 +101,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Dentiq+Clinic+Perundurai+Road+Erode",
     achievements: ["Super Speciality Laser Dental Hospital since 2013", "ADA, OSHA & CDC sterilization standards", "4.8 rating on Justdial with 237 ratings", "State-of-the-art laser equipment"],
     treatments: ["Laser Dentistry", "Orthodontics", "Pedodontics", "Conservative Dentistry", "Prosthodontics", "Endodontics", "Cosmetic Dentistry", "Implant Dentistry", "Oral & Maxillofacial Surgery"],
-    about: "DentiQ provides exceptional quality care with highly specialised doctors and state-of-the-art equipment, strictly adhering to ADA, OSHA, and CDC sterilization protocols."
+    about: "DentiQ provides exceptional quality care with highly specialised doctors and state-of-the-art equipment, strictly adhering to ADA, OSHA, and CDC sterilization protocols.",
+    emiAvailable: true
   },
   {
     id: "dr-royal",
@@ -119,7 +122,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Royal+Dental+Care+and+Implant+Center+Erode",
     achievements: ["Best Dental Hospital in Erode", "Highest standards of hygiene & sterilization", "Advanced dental implant technology", "Comprehensive patient-focused care"],
     treatments: ["Dental Implants", "Root Canal Treatment", "Crowns & Bridges", "Teeth Whitening", "Braces", "Extractions", "Dentures", "Cosmetic Dentistry"],
-    about: "Royal Dental Care and Implant Center is one of the Best Dental Clinics in Erode, providing quality patient care with highest standards of hygiene and sterilization."
+    about: "Royal Dental Care and Implant Center is one of the Best Dental Clinics in Erode, providing quality patient care with highest standards of hygiene and sterilization.",
+    emiAvailable: true
   },
   {
     id: "dr-faizal",
@@ -139,7 +143,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Faizal+Dental+Care+Erode",
     achievements: ["Leading Invisalign provider in Erode", "Root Canal Specialist (MDS)", "Dr. M.R.F. Anees Fathima BDS also on team", "Patient-comfort focused clinic"],
     treatments: ["Dental Implants", "Invisalign & Clear Aligners", "Orthodontic Braces", "Root Canal Treatment", "Teeth Whitening", "Crowns & Bridges", "Cosmetic Dentistry", "Minor Oral Surgery", "Pediatric Dentistry"],
-    about: "Faizal Dental Care, led by Dr. M.R. Mohamed Faizal (BDS, MDS - Root Canal Specialist) and Dr. M.R.F. Anees Fathima (BDS), offers comprehensive dental care with a focus on patient comfort."
+    about: "Faizal Dental Care, led by Dr. M.R. Mohamed Faizal (BDS, MDS - Root Canal Specialist) and Dr. M.R.F. Anees Fathima (BDS), offers comprehensive dental care with a focus on patient comfort.",
+    emiAvailable: true
   },
   {
     id: "dr-srikala",
@@ -199,7 +204,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Sree+Arumugavadivu+Dental+Erode",
     achievements: ["12 years of dental excellence", "Quality dental care for everyone", "EMI available for orthodontic treatments", "Comprehensive restorative dentistry"],
     treatments: ["General Dentistry", "Restorative Dentistry", "Cosmetic Dentistry", "Endodontics", "Pediatric Care", "Orthodontics", "Dental Implants"],
-    about: "Sree Arumugavadivu Multispeciality Dental and Implant Clinic offers quality dental care with 12 years of excellence, including EMI options for orthodontic treatments."
+    about: "Sree Arumugavadivu Multispeciality Dental and Implant Clinic offers quality dental care with 12 years of excellence, including EMI options for orthodontic treatments.",
+    emiAvailable: true
   },
   {
     id: "dr-dental-foundation",

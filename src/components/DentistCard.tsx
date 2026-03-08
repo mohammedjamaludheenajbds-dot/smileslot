@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Award, MessageCircle, Navigation, CalendarDays } from "lucide-react";
+import { MapPin, Clock, Award, MessageCircle, Navigation, IndianRupee } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
@@ -40,7 +40,12 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
       </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
-        {dentist.treatments.slice(0, 3).map((t) => (
+        {dentist.emiAvailable && (
+          <Badge className="bg-success/10 text-success border-success/20 text-xs gap-1">
+            <IndianRupee className="h-3 w-3" /> EMI Available
+          </Badge>
+        )}
+        {dentist.treatments.slice(0, dentist.emiAvailable ? 2 : 3).map((t) => (
           <Badge key={t} variant="secondary" className="text-xs">
             {t}
           </Badge>

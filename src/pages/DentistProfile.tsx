@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft, Navigation } from "lucide-react";
+import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft, Navigation, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
@@ -69,10 +69,25 @@ const DentistProfile = () => {
           <div className="mt-6">
             <h3 className="font-display text-lg font-bold text-foreground">Clinic Details</h3>
             <div className="mt-2 rounded-lg border p-4">
-              <p className="font-semibold text-foreground">{dentist.clinicName}</p>
-              <p className="text-sm text-muted-foreground">{dentist.address}</p>
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-semibold text-foreground">{dentist.clinicName}</p>
+                  <p className="text-sm text-muted-foreground">{dentist.address}</p>
+                </div>
+                {dentist.emiAvailable && (
+                  <Badge className="shrink-0 bg-success/10 text-success border-success/20 gap-1">
+                    <IndianRupee className="h-3 w-3" /> EMI Available
+                  </Badge>
+                )}
+              </div>
+              {dentist.emiAvailable && (
+                <div className="mt-3 rounded-md bg-success/5 border border-success/20 p-3">
+                  <p className="text-sm font-medium text-foreground">💳 EMI Payment Option</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">This clinic offers easy EMI plans for treatments like implants, braces, and cosmetic procedures. Contact the clinic for EMI details and eligibility.</p>
+                </div>
+              )}
               {dentist.website && (
-                <a href={dentist.website} target="_blank" rel="noreferrer" className="mt-1 flex items-center gap-1 text-sm text-primary hover:underline">
+                <a href={dentist.website} target="_blank" rel="noreferrer" className="mt-2 flex items-center gap-1 text-sm text-primary hover:underline">
                   <Globe className="h-3.5 w-3.5" /> {dentist.website}
                 </a>
               )}
