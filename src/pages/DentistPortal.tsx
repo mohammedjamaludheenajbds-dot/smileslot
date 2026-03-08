@@ -42,6 +42,26 @@ const DentistPortal = () => {
 
   const doctorAppointments = appointments.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
+  // Home consultation requests
+  const [homeRequests, setHomeRequests] = useState<any[]>([]);
+  const [homeLoading, setHomeLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchHomeRequests = async () => {
+      setHomeLoading(true);
+      const { data } = await supabase.from("home_consultations" as any).select("*").order("created_at", { ascending: false }) as any;
+      setHomeRequests(data || []);
+      setHomeLoading(false);
+    };
+    fetchHomeRequests();
+  }, []);
+
+  const updateRequestStatus = async (id: string, status: string) => {
+    await supabase.from("home_consultations" as any).update({ status } as any).eq("id", id);
+    setHomeRequests((prev) => prev.map((r) => r.id === id ? { ...r, status } : r));
+    toast.success(`Request marked as ${status}`);
+  };
+
   const addMedicine = () => setMedicines([...medicines, emptyMedicine()]);
   const removeMedicine = (i: number) => setMedicines(medicines.filter((_, idx) => idx !== i));
   const updateMedicine = (i: number, field: keyof PrescriptionMedicine, value: string) => {
