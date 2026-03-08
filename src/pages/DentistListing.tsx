@@ -12,12 +12,14 @@ const DentistListing = () => {
   const [search, setSearch] = useState("");
   const [area, setArea] = useState("All");
   const [spec, setSpec] = useState("All");
+  const [emiOnly, setEmiOnly] = useState(false);
 
   const filtered = dentists.filter((d) => {
     const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.clinicName.toLowerCase().includes(search.toLowerCase());
     const matchArea = area === "All" || d.area === area;
     const matchSpec = spec === "All" || d.specialization.toLowerCase().includes(spec.toLowerCase());
-    return matchSearch && matchArea && matchSpec;
+    const matchEmi = !emiOnly || d.emiAvailable;
+    return matchSearch && matchArea && matchSpec && matchEmi;
   });
 
   return (
