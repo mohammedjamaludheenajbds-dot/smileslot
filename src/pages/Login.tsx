@@ -19,9 +19,12 @@ const Login = () => {
       toast.error("Please select a role and enter your name");
       return;
     }
-    login(selectedRole, name.trim());
+    const actualRole = selectedRole === "home_patient" ? "patient" : selectedRole;
+    login(actualRole, name.trim());
     toast.success(`Welcome, ${name}!`);
-    navigate(selectedRole === "doctor" ? "/dentist-portal" : "/patient-portal");
+    if (selectedRole === "doctor") navigate("/dentist-portal");
+    else if (selectedRole === "home_patient") navigate("/patient-portal?tab=home-consult");
+    else navigate("/patient-portal");
   };
 
   return (
