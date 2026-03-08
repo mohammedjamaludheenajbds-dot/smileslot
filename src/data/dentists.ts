@@ -29,6 +29,8 @@ export interface Treatment {
   materials: Material[];
   duration: string;
   videoUrl?: string;
+  images: string[];
+  youtubeId?: string;
 }
 
 export interface Material {
@@ -1137,7 +1139,12 @@ export const treatments: Treatment[] = [
     ],
     idaFixedCost: { min: 500, max: 1500 },
     materials: [],
-    duration: "30-45 minutes"
+    duration: "30-45 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600"
+    ],
+    youtubeId: "xK023k0IhbI"
   },
   {
     id: "root-canal",
@@ -1160,7 +1167,12 @@ export const treatments: Treatment[] = [
       { name: "Bioceramic Sealer", type: "Premium", costAddon: 1500, description: "Advanced biocompatible sealer with superior seal and antibacterial properties" },
       { name: "MTA (Mineral Trioxide Aggregate)", type: "Premium", costAddon: 2000, description: "Gold standard for complex cases, excellent biocompatibility and sealing" }
     ],
-    duration: "45-90 minutes per sitting (1-2 sittings)"
+    duration: "45-90 minutes per sitting (1-2 sittings)",
+    images: [
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "pOLlmoBKl5E"
   },
   {
     id: "dental-implant",
@@ -1182,7 +1194,12 @@ export const treatments: Treatment[] = [
       { name: "Nobel Biocare (Sweden)", type: "Premium", costAddon: 15000, description: "World-leading premium implant with 40+ years of clinical evidence" },
       { name: "Straumann (Switzerland)", type: "Premium", costAddon: 20000, description: "Top-tier Swiss implant with SLActive surface for faster healing" }
     ],
-    duration: "3-6 months total (multiple visits)"
+    duration: "3-6 months total (multiple visits)",
+    images: [
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600",
+      "https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600"
+    ],
+    youtubeId: "QPmp2F-IsHk"
   },
   {
     id: "braces",
@@ -1204,7 +1221,12 @@ export const treatments: Treatment[] = [
       { name: "Self-Ligating (Damon)", type: "Premium", costAddon: 20000, description: "Advanced system requiring fewer adjustments and less friction" },
       { name: "Lingual Braces", type: "Invisible", costAddon: 40000, description: "Placed behind teeth - completely hidden from view" }
     ],
-    duration: "12-24 months"
+    duration: "12-24 months",
+    images: [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600"
+    ],
+    youtubeId: "GVEAH4JxVK0"
   },
   {
     id: "teeth-whitening",
@@ -1225,7 +1247,12 @@ export const treatments: Treatment[] = [
       { name: "Zoom Whitening System", type: "Premium", costAddon: 5000, description: "Advanced LED-activated system for faster, brighter results" },
       { name: "Laser Whitening", type: "Premium", costAddon: 8000, description: "Cutting-edge laser technology for maximum whitening in one session" }
     ],
-    duration: "60-90 minutes"
+    duration: "60-90 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=600"
+    ],
+    youtubeId: "H1w3GN8nyOE"
   },
   {
     id: "crown",
@@ -1247,7 +1274,12 @@ export const treatments: Treatment[] = [
       { name: "Zirconia Crown", type: "Premium", costAddon: 5000, description: "Metal-free, natural-looking, extremely strong and biocompatible" },
       { name: "E-max (Lithium Disilicate)", type: "Premium", costAddon: 7000, description: "Most aesthetic option with excellent translucency mimicking natural teeth" }
     ],
-    duration: "2-3 visits over 1-2 weeks"
+    duration: "2-3 visits over 1-2 weeks",
+    images: [
+      "https://images.unsplash.com/photo-1629909615957-be38d48fbbe4?w=600",
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600"
+    ],
+    youtubeId: "lFBMHxLe1Sk"
   },
   {
     id: "extraction",
@@ -1264,7 +1296,12 @@ export const treatments: Treatment[] = [
     ],
     idaFixedCost: { min: 500, max: 5000 },
     materials: [],
-    duration: "15-45 minutes"
+    duration: "15-45 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "v3MTyAg_fso"
   },
   {
     id: "denture",
@@ -1286,7 +1323,12 @@ export const treatments: Treatment[] = [
       { name: "Cast Partial Denture (CoCr)", type: "Premium", costAddon: 8000, description: "Metal framework for precise fit and durability" },
       { name: "BPS Denture (Ivoclar)", type: "Premium", costAddon: 12000, description: "Swiss precision denture system for superior fit and aesthetics" }
     ],
-    duration: "4-6 visits over 2-3 weeks"
+    duration: "4-6 visits over 2-3 weeks",
+    images: [
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600",
+      "https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600"
+    ],
+    youtubeId: "rCkqMHewmBU"
   },
   {
     id: "filling",
@@ -1308,7 +1350,12 @@ export const treatments: Treatment[] = [
       { name: "Composite Resin", type: "Aesthetic", costAddon: 500, description: "Tooth-colored filling matching natural tooth shade" },
       { name: "Ceramic Inlay/Onlay", type: "Premium", costAddon: 3000, description: "Lab-made precision restoration for large cavities" }
     ],
-    duration: "20-40 minutes"
+    duration: "20-40 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "RY51wEOrKfQ"
   },
   {
     id: "veneer",
@@ -1330,6 +1377,11 @@ export const treatments: Treatment[] = [
       { name: "Porcelain Veneer (Feldspathic)", type: "Premium", costAddon: 8000, description: "Handcrafted porcelain for most natural appearance" },
       { name: "E-max Veneer", type: "Premium", costAddon: 10000, description: "Ultra-thin, highly aesthetic pressed ceramic veneer" }
     ],
-    duration: "2-3 visits over 1-2 weeks"
+    duration: "2-3 visits over 1-2 weeks",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=600"
+    ],
+    youtubeId: "qHLbMrcFJo4"
   }
 ];
