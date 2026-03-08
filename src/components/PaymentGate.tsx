@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const UPI_ID = "kirthikasethuraman04@oksbi";
-const AMOUNT = 3;
+const AMOUNT = 15;
 const PAYMENT_KEY = "dental_payment_verified";
 
 const generateDeviceId = (): string => {
