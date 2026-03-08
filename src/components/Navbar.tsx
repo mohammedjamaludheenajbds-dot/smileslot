@@ -47,7 +47,10 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 glass-card border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+          <div
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary cursor-pointer select-none"
+            onClick={handleLogoTap}
+          >
             <span className="font-display text-lg font-bold text-primary-foreground">S</span>
           </div>
           <div className="hidden sm:block">
