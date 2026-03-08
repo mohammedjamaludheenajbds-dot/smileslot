@@ -57,6 +57,16 @@ const DentistListing = () => {
               ))}
             </div>
           </div>
+
+          <div>
+            <Badge
+              variant={emiOnly ? "default" : "outline"}
+              className="cursor-pointer gap-1"
+              onClick={() => setEmiOnly(!emiOnly)}
+            >
+              💳 EMI Available Only
+            </Badge>
+          </div>
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
