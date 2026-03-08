@@ -12,6 +12,7 @@ import Treatments from "./pages/Treatments";
 import PatientPortal from "./pages/PatientPortal";
 import DentistPortal from "./pages/DentistPortal";
 import NotFound from "./pages/NotFound";
+import AIChatBot from "./components/AIChatBot";
 
 const queryClient = new QueryClient();
 
