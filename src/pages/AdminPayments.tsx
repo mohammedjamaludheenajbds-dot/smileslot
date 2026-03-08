@@ -23,6 +23,16 @@ interface Payment {
   created_at: string;
 }
 
+interface DoctorApplication {
+  id: string;
+  name: string;
+  phone: string;
+  clinic_name: string;
+  specialization: string;
+  status: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
