@@ -1194,7 +1194,12 @@ export const treatments: Treatment[] = [
       { name: "Nobel Biocare (Sweden)", type: "Premium", costAddon: 15000, description: "World-leading premium implant with 40+ years of clinical evidence" },
       { name: "Straumann (Switzerland)", type: "Premium", costAddon: 20000, description: "Top-tier Swiss implant with SLActive surface for faster healing" }
     ],
-    duration: "3-6 months total (multiple visits)"
+    duration: "3-6 months total (multiple visits)",
+    images: [
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600",
+      "https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600"
+    ],
+    youtubeId: "QPmp2F-IsHk"
   },
   {
     id: "braces",
