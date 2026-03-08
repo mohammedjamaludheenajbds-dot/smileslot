@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, CalendarDays, LogOut, User, Stethoscope } from "lucide-react";
+import { Menu, X, LogOut, User, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
+import LanguageSwitcher from "./LanguageSwitcher";
+import VoiceControl from "./VoiceControl";
 import { useAuthStore } from "@/stores/authStore";
+import { useLanguageStore } from "@/stores/languageStore";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { role, name, isLoggedIn, logout } = useAuthStore();
+  const { t } = useLanguageStore();
 
   const navLinks = [
-    { to: "/", label: "Home", show: true },
-    { to: "/dentists", label: "Find Dentists", show: true },
-    { to: "/treatments", label: "Treatments", show: true },
-    { to: "/patient-portal", label: "Patient Portal", show: role === "patient" },
-    { to: "/dentist-portal", label: "Doctor Portal", show: role === "doctor" },
+    { to: "/", label: t("nav.home"), show: true },
+    { to: "/dentists", label: t("nav.findDentists"), show: true },
+    { to: "/treatments", label: t("nav.treatments"), show: true },
+    { to: "/patient-portal", label: t("nav.patientPortal"), show: role === "patient" },
+    { to: "/dentist-portal", label: t("nav.doctorPortal"), show: role === "doctor" },
   ].filter((l) => l.show);
 
   const handleLogout = () => {
@@ -53,7 +57,9 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
+          <VoiceControl />
+          <LanguageSwitcher />
           <NotificationBell />
           {isLoggedIn ? (
             <>
@@ -63,12 +69,12 @@ const Navbar = () => {
               </div>
               <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-1 text-muted-foreground">
                 <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">Logout</span>
+                <span className="hidden sm:inline">{t("nav.logout")}</span>
               </Button>
             </>
           ) : (
             <Button asChild size="sm" className="gap-2">
-              <Link to="/login">Login</Link>
+              <Link to="/login">{t("nav.login")}</Link>
             </Button>
           )}
           <button
@@ -108,7 +114,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Button asChild size="sm" className="mt-2 w-full">
-              <Link to="/login">Login</Link>
+              <Link to="/login">{t("nav.login")}</Link>
             </Button>
           )}
         </div>
