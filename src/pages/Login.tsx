@@ -98,7 +98,7 @@ const Login = () => {
               />
             </div>
             <Button className="w-full" size="lg" onClick={handleLogin}>
-              Continue as {selectedRole === "doctor" ? "Doctor" : "Patient"}
+              Continue as {selectedRole === "doctor" ? "Doctor" : selectedRole === "home_patient" ? "Home Patient" : "Patient"}
             </Button>
           </motion.div>
         )}
