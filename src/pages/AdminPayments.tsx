@@ -337,7 +337,8 @@ const AdminPayments = () => {
                         <TableHead>Name</TableHead>
                         <TableHead>Phone</TableHead>
                         <TableHead>Clinic</TableHead>
-                        <TableHead>Specialization</TableHead>
+                         <TableHead>Specialization</TableHead>
+                        <TableHead>Documents</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Actions</TableHead>
@@ -351,6 +352,17 @@ const AdminPayments = () => {
                           <TableCell>{a.phone}</TableCell>
                           <TableCell>{a.clinic_name}</TableCell>
                           <TableCell>{a.specialization || "—"}</TableCell>
+                          <TableCell>
+                            <div className="flex flex-col gap-1">
+                              {a.dci_certificate_url && (
+                                <a href={a.dci_certificate_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline">DCI Certificate</a>
+                              )}
+                              {a.id_proof_url && (
+                                <a href={a.id_proof_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline">ID Proof</a>
+                              )}
+                              {!a.dci_certificate_url && !a.id_proof_url && <span className="text-xs text-muted-foreground">No docs</span>}
+                            </div>
+                          </TableCell>
                           <TableCell>
                             <Badge variant={a.status === "approved" ? "default" : a.status === "rejected" ? "destructive" : "secondary"}>
                               {a.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
