@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Award, MessageCircle, Navigation, CalendarDays } from "lucide-react";
+import { MapPin, Clock, Award, MessageCircle, Navigation, IndianRupee } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
