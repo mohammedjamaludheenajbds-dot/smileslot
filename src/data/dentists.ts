@@ -1377,6 +1377,11 @@ export const treatments: Treatment[] = [
       { name: "Porcelain Veneer (Feldspathic)", type: "Premium", costAddon: 8000, description: "Handcrafted porcelain for most natural appearance" },
       { name: "E-max Veneer", type: "Premium", costAddon: 10000, description: "Ultra-thin, highly aesthetic pressed ceramic veneer" }
     ],
-    duration: "2-3 visits over 1-2 weeks"
+    duration: "2-3 visits over 1-2 weeks",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=600"
+    ],
+    youtubeId: "qHLbMrcFJo4"
   }
 ];
