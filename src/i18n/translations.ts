@@ -53,6 +53,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "tab.medical": "Medical",
     "tab.dental": "Dental",
     "tab.booking": "Booking",
+    "tab.homeConsult": "Home Visit",
     "tab.records": "Records",
     "tab.medications": "Medications",
     "tab.reviews": "Reviews",
