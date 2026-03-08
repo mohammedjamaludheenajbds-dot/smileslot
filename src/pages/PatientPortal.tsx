@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useAppointmentStore } from "@/stores/appointmentStore";
 import { useLanguageStore } from "@/stores/languageStore";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import MedicationReminders from "@/components/MedicationReminders";
 import PatientRecords from "@/components/PatientRecords";
 import VideoReviews from "@/components/VideoReviews";
