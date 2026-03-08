@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import BookAppointmentDialog from "./BookAppointmentDialog";
+import InAppChat from "./InAppChat";
 import type { Dentist } from "@/data/dentists";
 
 const DentistCard = ({ dentist }: { dentist: Dentist }) => {
