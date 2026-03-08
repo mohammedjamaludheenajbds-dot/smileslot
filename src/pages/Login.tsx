@@ -42,6 +42,7 @@ const Login = () => {
       if (existing && existing.length > 0) {
         const app = existing[0];
         if (app.status === "approved") {
+          localStorage.setItem("dental_auth", JSON.stringify({ role: "doctor", name: app.name, phone: phone.trim() }));
           login("doctor", app.name);
           toast.success(`Welcome back, ${app.name}!`);
           navigate("/dentist-portal");
