@@ -47,6 +47,20 @@ const DentistPortal = () => {
   const [homeRequests, setHomeRequests] = useState<any[]>([]);
   const [homeLoading, setHomeLoading] = useState(false);
 
+  // Clinic form state
+  const [clinicForm, setClinicForm] = useState({
+    doctor_name: "", qualification: "", clinic_name: "", specialization: "",
+    address: "", area: "", phone: "", whatsapp: "", website: "",
+    experience: "", about: "", achievements: "", treatments: "",
+    google_maps_url: "", emi_available: false,
+  });
+  const [clinicStatus, setClinicStatus] = useState<string | null>(null);
+  const [clinicSubmitting, setClinicSubmitting] = useState(false);
+  const [clinicLoaded, setClinicLoaded] = useState(false);
+
+  // Get doctor's phone from their application to link clinic
+  const authPhone = localStorage.getItem("dental_auth") ? JSON.parse(localStorage.getItem("dental_auth") || "{}").phone || "" : "";
+
   useEffect(() => {
     const fetchHomeRequests = async () => {
       setHomeLoading(true);
@@ -55,7 +69,41 @@ const DentistPortal = () => {
       setHomeLoading(false);
     };
     fetchHomeRequests();
-  }, []);
+
+    // Load existing clinic data
+    const fetchClinic = async () => {
+      if (!authName) return;
+      const { data } = await supabase
+        .from("clinics")
+        .select("*")
+        .eq("doctor_name", authName)
+        .order("created_at", { ascending: false })
+        .limit(1);
+      if (data && data.length > 0) {
+        const c = data[0] as any;
+        setClinicForm({
+          doctor_name: c.doctor_name || "",
+          qualification: c.qualification || "",
+          clinic_name: c.clinic_name || "",
+          specialization: c.specialization || "",
+          address: c.address || "",
+          area: c.area || "",
+          phone: c.phone || "",
+          whatsapp: c.whatsapp || "",
+          website: c.website || "",
+          experience: String(c.experience || ""),
+          about: c.about || "",
+          achievements: c.achievements || "",
+          treatments: c.treatments || "",
+          google_maps_url: c.google_maps_url || "",
+          emi_available: c.emi_available || false,
+        });
+        setClinicStatus(c.status);
+      }
+      setClinicLoaded(true);
+    };
+    fetchClinic();
+  }, [authName]);
 
   const updateRequestStatus = async (id: string, status: string) => {
     await supabase.from("home_consultations" as any).update({ status } as any).eq("id", id);
