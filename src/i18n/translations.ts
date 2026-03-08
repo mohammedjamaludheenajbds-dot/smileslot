@@ -288,7 +288,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "footer.contact": "தொடர்பு",
     "footer.disclaimer": "மறுப்பு",
     "footer.disclaimerText": "சிகிச்சை செலவுகள் இந்திய பல் மருத்துவ சங்கம் (IDA) வழிகாட்டுதல்களின் படி. உண்மையான செலவுகள் சிக்கலின் அடிப்படையில் மாறுபடலாம்.",
-    "footer.copyright": "© 2026 ஈரோடு பல் முன்பதிவு. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+    "footer.copyright": "© 2026 Smile Slot. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
 
     // Reminders
     "reminder.smart": "ஸ்மார்ட் நினைவூட்டல்கள்",
