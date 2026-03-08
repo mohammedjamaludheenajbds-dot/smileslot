@@ -13,6 +13,7 @@ import { useDoctorStore, type PrescriptionMedicine } from "@/stores/doctorStore"
 import { useAppointmentStore } from "@/stores/appointmentStore";
 import { useAuthStore } from "@/stores/authStore";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const emptyMedicine = (): PrescriptionMedicine => ({
   name: "", dosage: "", frequency: "", duration: "", instructions: "",
