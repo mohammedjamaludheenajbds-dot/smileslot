@@ -143,7 +143,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Faizal+Dental+Care+Erode",
     achievements: ["Leading Invisalign provider in Erode", "Root Canal Specialist (MDS)", "Dr. M.R.F. Anees Fathima BDS also on team", "Patient-comfort focused clinic"],
     treatments: ["Dental Implants", "Invisalign & Clear Aligners", "Orthodontic Braces", "Root Canal Treatment", "Teeth Whitening", "Crowns & Bridges", "Cosmetic Dentistry", "Minor Oral Surgery", "Pediatric Dentistry"],
-    about: "Faizal Dental Care, led by Dr. M.R. Mohamed Faizal (BDS, MDS - Root Canal Specialist) and Dr. M.R.F. Anees Fathima (BDS), offers comprehensive dental care with a focus on patient comfort."
+    about: "Faizal Dental Care, led by Dr. M.R. Mohamed Faizal (BDS, MDS - Root Canal Specialist) and Dr. M.R.F. Anees Fathima (BDS), offers comprehensive dental care with a focus on patient comfort.",
+    emiAvailable: true
   },
   {
     id: "dr-srikala",
