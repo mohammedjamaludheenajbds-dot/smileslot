@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_messages: {
+        Row: {
+          created_at: string
+          dentist_id: string
+          id: string
+          message: string
+          sender_name: string
+          sender_role: string
+        }
+        Insert: {
+          created_at?: string
+          dentist_id: string
+          id?: string
+          message: string
+          sender_name: string
+          sender_role: string
+        }
+        Update: {
+          created_at?: string
+          dentist_id?: string
+          id?: string
+          message?: string
+          sender_name?: string
+          sender_role?: string
+        }
+        Relationships: []
+      }
       home_consultations: {
         Row: {
           address: string
