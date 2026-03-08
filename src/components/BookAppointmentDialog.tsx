@@ -14,7 +14,7 @@ const timeSlots = [
   "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00",
 ];
 
-const BookAppointmentDialog = ({ dentist }: { dentist: Dentist }) => {
+const BookAppointmentDialog = ({ dentist, compact }: { dentist: Dentist; compact?: boolean }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
