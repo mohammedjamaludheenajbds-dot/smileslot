@@ -126,10 +126,7 @@ const DentistProfile = () => {
 
           <div className="mt-8 space-y-3">
             <BookAppointmentDialog dentist={dentist} />
-            <Button variant="outline" size="lg" className="w-full" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Chat on WhatsApp
-            </Button>
+            <InAppChat dentistId={dentist.id} dentistName={dentist.name} />
           </div>
         </motion.div>
       </div>
