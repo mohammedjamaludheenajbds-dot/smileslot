@@ -1966,6 +1966,27 @@ export const dentists: Dentist[] = [
     treatments: ["Emergency Dental Care", "Root Canal Treatment", "Extractions", "Dental Fillings", "Crowns & Bridges", "Teeth Cleaning", "Trauma Management"],
     about: "Ezhil 24/7 Dental Clinic near New Bus Stand provides round-the-clock dental emergency care in Salem."
   },
+  {
+    id: "dr-vijay-advanced",
+    name: "Dr. Vijay",
+    qualification: "BDS, MDS (Prosthodontics & Implantology)",
+    specialization: "Advanced Dental Implants & Prosthodontics",
+    experience: 15,
+    rating: 4.7,
+    reviewCount: 350,
+    clinicName: "Dr. Vijay's Advanced Dental Care & Implant Center",
+    address: "Erode, Tamil Nadu",
+    area: "Erode Town",
+    phone: "+91 90000 00000",
+    whatsapp: "+91 90000 00000",
+    website: "",
+    image: "/placeholder.svg",
+    googleMapsUrl: "https://maps.google.com/?q=Dr+Vijay+Advanced+Dental+Care+Implant+Center+Erode",
+    achievements: ["Advanced implant specialist", "Full mouth rehabilitation expert", "Modern digital dentistry equipment", "High patient satisfaction rate"],
+    treatments: ["Dental Implants", "Full Mouth Rehabilitation", "Crowns & Bridges", "Root Canal Treatment", "Braces", "Smile Design", "Teeth Whitening", "Dentures"],
+    about: "Dr. Vijay's Advanced Dental Care & Implant Center offers comprehensive dental care with a focus on advanced implant procedures and full mouth rehabilitation in Erode.",
+    emiAvailable: true
+  },
 ];
 
 export const treatments: Treatment[] = [
