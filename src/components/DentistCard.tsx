@@ -9,6 +9,9 @@ import { useUnreadChats } from "@/hooks/useUnreadChats";
 import type { Dentist } from "@/data/dentists";
 
 const DentistCard = ({ dentist }: { dentist: Dentist }) => {
+  const { getCount } = useUnreadChats(dentist.id);
+  const unread = getCount(dentist.id);
+
   return (
     <div className="group rounded-xl border bg-card p-5 transition-all duration-300 card-shadow hover:card-shadow-hover">
       <div className="flex gap-4">
