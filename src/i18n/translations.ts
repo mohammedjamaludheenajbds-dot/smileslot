@@ -8,8 +8,24 @@ export const translations: Record<Language, Record<string, string>> = {
     "nav.treatments": "Treatments",
     "nav.patientPortal": "Patient Portal",
     "nav.doctorPortal": "Doctor Portal",
+    "nav.homeConsult": "Home Consultation",
     "nav.login": "Login",
     "nav.logout": "Logout",
+
+    // Home Consultation
+    "homeConsult.title": "Home Consultation",
+    "homeConsult.subtitle": "Request a dentist home visit for elderly or handicapped patients",
+    "homeConsult.infoTitle": "For Patients Who Cannot Visit a Clinic",
+    "homeConsult.infoDesc": "Fill out this form to request a home visit from a qualified dentist. Our team will review your request and connect you with an available dentist.",
+    "homeConsult.name": "Patient Name *",
+    "homeConsult.age": "Age *",
+    "homeConsult.sex": "Sex *",
+    "homeConsult.phone": "Phone Number *",
+    "homeConsult.address": "Full Address *",
+    "homeConsult.condition": "Condition / Suffering *",
+    "homeConsult.treatment": "Treatment Required *",
+    "homeConsult.submit": "Submit Home Visit Request",
+    "homeConsult.success": "Your home consultation request has been submitted! A dentist will contact you soon.",
 
     // Index
     "hero.title1": "Find & Book Your",
