@@ -184,7 +184,7 @@ export const dentists: Dentist[] = [
   },
   {
     id: "dr-abimanyu",
-    name: "Dr. Abhimanyu Sharma",
+    name: "Dr. Abhimanyu",
     qualification: "BDS, MDS (Prosthodontics & Cosmetic Dentistry)",
     specialization: "Cosmetic Dentistry & Implantology",
     experience: 15,
