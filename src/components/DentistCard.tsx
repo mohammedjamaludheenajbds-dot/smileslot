@@ -47,28 +47,31 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
         ))}
       </div>
 
-      <div className="mt-4 flex gap-2">
-        <Button asChild size="sm" className="flex-1">
-          <Link to={`/dentists/${dentist.id}`}>View Profile</Link>
-        </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          className="gap-1"
-          onClick={() => window.open(dentist.googleMapsUrl, "_blank")}
-        >
-          <Navigation className="h-3.5 w-3.5" />
-          Directions
-        </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          className="gap-1"
-          onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`, "_blank")}
-        >
-          <MessageCircle className="h-3.5 w-3.5" />
-          Chat
-        </Button>
+      <div className="mt-4 space-y-2">
+        <BookAppointmentDialog dentist={dentist} />
+        <div className="flex gap-2">
+          <Button asChild size="sm" variant="outline" className="flex-1">
+            <Link to={`/dentists/${dentist.id}`}>View Profile</Link>
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            className="gap-1"
+            onClick={() => window.open(dentist.googleMapsUrl, "_blank")}
+          >
+            <Navigation className="h-3.5 w-3.5" />
+            Directions
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            className="gap-1"
+            onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`, "_blank")}
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+            Chat
+          </Button>
+        </div>
       </div>
     </div>
   );
