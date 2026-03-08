@@ -46,9 +46,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button size="sm" className="hidden sm:flex gap-2">
-            <Phone className="h-4 w-4" />
-            Book Now
+          <NotificationBell />
+          <Button asChild size="sm" className="hidden sm:flex gap-2">
+            <Link to="/dentists">
+              <CalendarDays className="h-4 w-4" />
+              Book Now
+            </Link>
           </Button>
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground md:hidden"
