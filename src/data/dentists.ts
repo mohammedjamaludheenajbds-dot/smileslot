@@ -185,26 +185,25 @@ export const dentists: Dentist[] = [
   {
     id: "dr-abimanyu",
     name: "Dr. Abhimanyu",
-    qualification: "BDS, MDS (Prosthodontics & Cosmetic Dentistry)",
-    specialization: "Cosmetic Dentistry & Implantology",
-    experience: 15,
+    qualification: "BDS, MDS",
+    specialization: "General & Cosmetic Dentistry",
+    experience: 10,
     rating: 4.7,
     reviewCount: 185,
-    clinicName: "Dr. Abhimanyu Dental Clinic",
+    clinicName: "Abhimanyu Dental Clinic",
     address: "Erode, Tamil Nadu",
     area: "Erode",
-    phone: "+91 85710 76969",
-    whatsapp: "+91 85710 76969",
-    website: "https://drabhi.in",
+    phone: "+91 90000 00000",
+    whatsapp: "+91 90000 00000",
+    website: "",
     image: "/placeholder.svg",
     achievements: [
-      "15+ years of comprehensive dental care experience",
-      "Advanced rotary endodontic & digital X-ray technology",
-      "Specialist in smile makeovers & cosmetic transformations",
+      "Trusted dental care provider in Erode",
+      "Advanced cosmetic dentistry procedures",
       "Patient-focused gentle care approach"
     ],
-    treatments: ["Root Canal Treatment", "Smile Makeovers", "Dental Implants", "Crowns & Bridges", "Braces & Aligners", "Cosmetic Dentistry"],
-    about: "Dr. Abhimanyu Dental Clinic (drabhi.in) offers comprehensive, personalized dental care using advanced rotary instruments and digital X-rays for precision and comfort. Specializing in root canal treatments, smile makeovers, implants, crowns, and orthodontics with a gentle, patient-first approach."
+    treatments: ["Root Canal Treatment", "Dental Implants", "Teeth Whitening", "Braces", "Crowns & Bridges", "Extractions"],
+    about: "Abhimanyu Dental Clinic provides comprehensive dental care with a focus on patient comfort and the latest treatment techniques in Erode."
   },
 ];
 
