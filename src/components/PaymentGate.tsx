@@ -86,7 +86,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
 
       markPaymentVerified();
       setStep("done");
-      toast.success("Payment verified! Welcome to Erode Dental Hub.");
+      toast.success("Payment verified! Welcome to Smile Slot.");
       setTimeout(onVerified, 1500);
     } catch (err: any) {
       toast.error("Submission failed: " + (err.message || "Please try again"));
