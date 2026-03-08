@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, LogOut, User, Stethoscope, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,19 @@ const Navbar = () => {
   const { role, name, isLoggedIn, logout } = useAuthStore();
   const { t } = useLanguageStore();
   const { total: unreadTotal } = useUnreadChats();
+  const tapCount = useRef(0);
+  const tapTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  const handleLogoTap = useCallback(() => {
+    tapCount.current += 1;
+    clearTimeout(tapTimer.current);
+    if (tapCount.current >= 5) {
+      tapCount.current = 0;
+      navigate("/admin-payments");
+    } else {
+      tapTimer.current = setTimeout(() => { tapCount.current = 0; }, 1500);
+    }
+  }, [navigate]);
 
   const navLinks = [
     { to: "/", label: t("nav.home"), show: true },
@@ -34,7 +47,10 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 glass-card border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+          <div
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary cursor-pointer select-none"
+            onClick={handleLogoTap}
+          >
             <span className="font-display text-lg font-bold text-primary-foreground">S</span>
           </div>
           <div className="hidden sm:block">
