@@ -135,6 +135,7 @@ const AdminPayments = () => {
   }
 
   const pendingApps = applications.filter((a) => a.status === "pending");
+  const pendingClinics = clinicSubs.filter((c) => c.status === "pending");
 
   const handleApplicationAction = async (id: string, status: "approved" | "rejected") => {
     const { error } = await supabase
@@ -147,6 +148,19 @@ const AdminPayments = () => {
     }
     toast.success(`Application ${status}`);
     fetchApplications();
+  };
+
+  const handleClinicAction = async (id: string, status: "approved" | "rejected") => {
+    const { error } = await supabase
+      .from("clinics")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Failed to update clinic");
+      return;
+    }
+    toast.success(`Clinic ${status}`);
+    fetchClinics();
   };
 
   return (
