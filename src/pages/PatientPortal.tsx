@@ -84,7 +84,7 @@ const PatientPortal = () => {
 
         <form onSubmit={handleSubmit} className="mt-8">
           <Tabs defaultValue="appointments" className="w-full">
-            <TabsList className="mb-6 grid w-full grid-cols-4 sm:grid-cols-8">
+            <TabsList className="mb-6 grid w-full grid-cols-4 sm:grid-cols-9">
               <TabsTrigger value="appointments" className="gap-1 text-xs">
                 <CalendarDays className="h-3.5 w-3.5 hidden sm:block" />
                 <span>{t("tab.appointments")}</span>
@@ -100,6 +100,7 @@ const PatientPortal = () => {
               <TabsTrigger value="records" className="gap-1 text-xs"><FileText className="h-3.5 w-3.5 hidden sm:block" />{t("tab.records")}</TabsTrigger>
               <TabsTrigger value="medications" className="gap-1 text-xs"><Pill className="h-3.5 w-3.5 hidden sm:block" />{t("tab.medications")}</TabsTrigger>
               <TabsTrigger value="reviews" className="gap-1 text-xs"><Video className="h-3.5 w-3.5 hidden sm:block" />{t("tab.reviews")}</TabsTrigger>
+              <TabsTrigger value="home-consult" className="gap-1 text-xs"><Home className="h-3.5 w-3.5 hidden sm:block" />{t("tab.homeConsult")}</TabsTrigger>
               <TabsTrigger value="booking" className="gap-1 text-xs"><Calendar className="h-3.5 w-3.5 hidden sm:block" />{t("tab.booking")}</TabsTrigger>
             </TabsList>
 
