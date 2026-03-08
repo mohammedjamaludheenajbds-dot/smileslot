@@ -51,6 +51,7 @@ const AppContent = () => {
           <Route path="/dentist-portal" element={
             <ProtectedRoute allowedRole="doctor"><DentistPortal /></ProtectedRoute>
           } />
+          <Route path="/admin-payments" element={<AdminPayments />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
