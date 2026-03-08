@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 
 const Login = () => {
-  const [selectedRole, setSelectedRole] = useState<"patient" | "doctor" | null>(null);
+  const [selectedRole, setSelectedRole] = useState<"patient" | "doctor" | "home_patient" | null>(null);
   const [name, setName] = useState("");
   const login = useAuthStore((s) => s.login);
   const navigate = useNavigate();
