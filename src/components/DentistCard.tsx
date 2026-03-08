@@ -76,9 +76,14 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
             dentistId={dentist.id}
             dentistName={dentist.name}
             trigger={
-              <Button size="sm" variant="outline" className="gap-1">
+              <Button size="sm" variant="outline" className="gap-1 relative">
                 <MessageCircle className="h-3.5 w-3.5" />
                 Chat
+                {unread > 0 && (
+                  <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold text-destructive-foreground">
+                    {unread > 9 ? "9+" : unread}
+                  </span>
+                )}
               </Button>
             }
           />
