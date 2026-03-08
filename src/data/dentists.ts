@@ -1139,7 +1139,12 @@ export const treatments: Treatment[] = [
     ],
     idaFixedCost: { min: 500, max: 1500 },
     materials: [],
-    duration: "30-45 minutes"
+    duration: "30-45 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600"
+    ],
+    youtubeId: "xK023k0IhbI"
   },
   {
     id: "root-canal",
