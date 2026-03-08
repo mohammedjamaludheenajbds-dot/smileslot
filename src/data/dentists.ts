@@ -181,7 +181,30 @@ export const dentists: Dentist[] = [
     ],
     treatments: ["Gum Surgery", "Laser Treatment", "Bone Grafting", "Deep Cleaning"],
     about: "Dr. Kavitha is a periodontist and laser dentistry expert offering advanced gum treatments with minimal pain and faster recovery."
-  }
+  },
+  {
+    id: "dr-abimanyu",
+    name: "Dr. Abimanyu",
+    qualification: "BDS, MDS",
+    specialization: "General & Cosmetic Dentistry",
+    experience: 10,
+    rating: 4.7,
+    reviewCount: 185,
+    clinicName: "Abimanyu Dental Clinic",
+    address: "Erode, Tamil Nadu",
+    area: "Erode",
+    phone: "+91 90000 00000",
+    whatsapp: "+91 90000 00000",
+    website: "",
+    image: "/placeholder.svg",
+    achievements: [
+      "Trusted dental care provider in Erode",
+      "Advanced cosmetic dentistry procedures",
+      "Patient-focused gentle care approach"
+    ],
+    treatments: ["Root Canal Treatment", "Dental Implants", "Teeth Whitening", "Braces", "Crowns & Bridges", "Extractions"],
+    about: "Abimanyu Dental Clinic provides comprehensive dental care with a focus on patient comfort and the latest treatment techniques in Erode."
+  },
 ];
 
 export const treatments: Treatment[] = [
