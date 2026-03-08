@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft } from "lucide-react";
+import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
