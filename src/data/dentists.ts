@@ -13,6 +13,7 @@ export interface Dentist {
   whatsapp: string;
   website: string;
   image: string;
+  googleMapsUrl: string;
   achievements: string[];
   treatments: string[];
   about: string;
