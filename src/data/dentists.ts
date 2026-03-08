@@ -181,7 +181,7 @@ export const dentists: Dentist[] = [
     ],
     treatments: ["Gum Surgery", "Laser Treatment", "Bone Grafting", "Deep Cleaning"],
     about: "Dr. Kavitha is a periodontist and laser dentistry expert offering advanced gum treatments with minimal pain and faster recovery."
-  }
+  },
   {
     id: "dr-abimanyu",
     name: "Dr. Abimanyu",
