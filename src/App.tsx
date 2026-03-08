@@ -36,6 +36,7 @@ const App = () => (
             </Routes>
           </main>
           <Footer />
+          <AIChatBot />
         </div>
       </BrowserRouter>
     </TooltipProvider>

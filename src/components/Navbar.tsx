@@ -78,9 +78,11 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button size="sm" className="mt-2 w-full gap-2">
-            <Phone className="h-4 w-4" />
-            Book Now
+          <Button asChild size="sm" className="mt-2 w-full gap-2">
+            <Link to="/dentists">
+              <CalendarDays className="h-4 w-4" />
+              Book Now
+            </Link>
           </Button>
         </div>
       )}
