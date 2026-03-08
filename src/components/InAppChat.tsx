@@ -82,6 +82,7 @@ const InAppChat = ({ dentistId, dentistName, trigger }: InAppChatProps) => {
             if (prev.some((m) => m.id === (payload.new as ChatMessage).id)) return prev;
             return [...prev, payload.new as ChatMessage];
           });
+          markChatRead(dentistId);
         }
       )
       .subscribe();
