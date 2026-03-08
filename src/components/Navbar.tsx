@@ -49,7 +49,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2">
           <div
             className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary cursor-pointer select-none"
-            onClick={handleLogoTap}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleLogoTap(); }}
           >
             <span className="font-display text-lg font-bold text-primary-foreground">S</span>
           </div>
