@@ -13,6 +13,7 @@ import PatientPortal from "./pages/PatientPortal";
 import DentistPortal from "./pages/DentistPortal";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import HomeConsultation from "./pages/HomeConsultation";
 import AIChatBot from "./components/AIChatBot";
 import { useAuthStore } from "./stores/authStore";
 
