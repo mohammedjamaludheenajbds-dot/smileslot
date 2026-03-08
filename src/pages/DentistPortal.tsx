@@ -150,9 +150,41 @@ const DentistPortal = () => {
     .filter((r) => reminderFilter === "all" ? true : reminderFilter === "pending" ? !r.completed : r.completed)
     .sort((a, b) => new Date(a.date + "T" + a.time).getTime() - new Date(b.date + "T" + b.time).getTime());
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleClinicSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Clinic profile submitted! Our team will verify and list your clinic within 24 hours.");
+    if (!clinicForm.doctor_name || !clinicForm.clinic_name || !clinicForm.address || !clinicForm.phone) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+    setClinicSubmitting(true);
+    const payload = {
+      doctor_name: clinicForm.doctor_name,
+      qualification: clinicForm.qualification,
+      clinic_name: clinicForm.clinic_name,
+      specialization: clinicForm.specialization,
+      address: clinicForm.address,
+      area: clinicForm.area,
+      phone: clinicForm.phone,
+      whatsapp: clinicForm.whatsapp,
+      website: clinicForm.website,
+      experience: parseInt(clinicForm.experience) || 0,
+      about: clinicForm.about,
+      achievements: clinicForm.achievements,
+      treatments: clinicForm.treatments,
+      google_maps_url: clinicForm.google_maps_url,
+      emi_available: clinicForm.emi_available,
+      doctor_phone: authPhone,
+      status: "pending",
+    };
+
+    const { error } = await supabase.from("clinics").insert(payload);
+    setClinicSubmitting(false);
+    if (error) {
+      toast.error("Failed to submit clinic info");
+      return;
+    }
+    setClinicStatus("pending");
+    toast.success("Clinic info submitted for admin approval!");
   };
 
   return (
