@@ -29,6 +29,8 @@ const homeFormSchema = z.object({
 });
 
 const PatientPortal = () => {
+  const [searchParams] = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "appointments";
   const [formData, setFormData] = useState({
     name: "", age: "", sex: "", height: "", weight: "",
     phone: "", email: "",
