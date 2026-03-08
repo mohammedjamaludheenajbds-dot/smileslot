@@ -62,6 +62,18 @@ const Navbar = () => {
         <div className="flex items-center gap-1.5">
           <VoiceControl />
           <LanguageSwitcher />
+          {isLoggedIn && (
+            <Button variant="ghost" size="icon" className="relative" asChild>
+              <Link to="/dentists">
+                <MessageCircle className="h-5 w-5" />
+                {unreadTotal > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                    {unreadTotal > 99 ? "99+" : unreadTotal}
+                  </span>
+                )}
+              </Link>
+            </Button>
+          )}
           <NotificationBell />
           {isLoggedIn ? (
             <>
