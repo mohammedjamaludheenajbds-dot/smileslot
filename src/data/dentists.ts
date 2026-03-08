@@ -204,7 +204,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Sree+Arumugavadivu+Dental+Erode",
     achievements: ["12 years of dental excellence", "Quality dental care for everyone", "EMI available for orthodontic treatments", "Comprehensive restorative dentistry"],
     treatments: ["General Dentistry", "Restorative Dentistry", "Cosmetic Dentistry", "Endodontics", "Pediatric Care", "Orthodontics", "Dental Implants"],
-    about: "Sree Arumugavadivu Multispeciality Dental and Implant Clinic offers quality dental care with 12 years of excellence, including EMI options for orthodontic treatments."
+    about: "Sree Arumugavadivu Multispeciality Dental and Implant Clinic offers quality dental care with 12 years of excellence, including EMI options for orthodontic treatments.",
+    emiAvailable: true
   },
   {
     id: "dr-dental-foundation",
