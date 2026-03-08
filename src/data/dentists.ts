@@ -1987,6 +1987,48 @@ export const dentists: Dentist[] = [
     about: "Dr. Vijay Thyagarajan, MDS (Oral Surgery), runs Dr. Vijay's Advanced Dental Care & Implant Center in Komarapalayam. The clinic offers comprehensive dental care with expertise in oral surgery, advanced implant procedures, and full mouth rehabilitation.",
     emiAvailable: true
   },
+  {
+    id: "jkkn-dental",
+    name: "JKKN Dental College & Hospital",
+    qualification: "BDS, MDS (Multiple Specializations)",
+    specialization: "Multispeciality Dental College & Hospital",
+    experience: 37,
+    rating: 4.5,
+    reviewCount: 500,
+    clinicName: "JKKN Dental College & Hospital",
+    address: "JKKN Educational Institutions, Natarajapuram, NH-544 (Salem to Coimbatore National Highway), Kumarapalayam (TK), Namakkal (DT), Tamil Nadu - 638183",
+    area: "Komarapalayam",
+    phone: "+91 93456 60666",
+    whatsapp: "+91 99523 72253",
+    website: "https://dental.jkkn.ac.in",
+    image: "/placeholder.svg",
+    googleMapsUrl: "https://maps.google.com/?q=JKKN+Dental+College+and+Hospital+Komarapalayam",
+    achievements: [
+      "India's 1st Human–AI AGI Dental Campus",
+      "Established in 1987 – 37+ years of excellence",
+      "DCI & NAAC Certified institution",
+      "BDS & MDS Programs with 5 MDS Specializations",
+      "15+ PhD Faculty & Advanced Simulation Labs",
+      "98% Placement record",
+      "Backed by J.K.K. Rangammal Charitable Trust (Est. 1969)"
+    ],
+    treatments: [
+      "Oral & Maxillofacial Surgery",
+      "Orthodontics",
+      "Prosthodontics",
+      "Conservative Dentistry & Endodontics",
+      "Periodontics",
+      "Pedodontics",
+      "Oral Pathology & Microbiology",
+      "Public Health Dentistry",
+      "Dental Implants",
+      "Root Canal Treatment",
+      "Teeth Whitening",
+      "Cosmetic Dentistry"
+    ],
+    about: "JKKN Dental College & Hospital, established in 1987, is India's 1st Human–AI AGI Dental Campus located on the Bangalore Highway in Komarapalayam. A DCI & NAAC Certified institution with 15+ PhD faculty, advanced simulation labs, AI integration, and real-time hospital training across 5 MDS specializations. Backed by J.K.K. Rangammal Charitable Trust with 70+ years of excellence in education & healthcare.",
+    emiAvailable: true
+  },
 ];
 
 export const treatments: Treatment[] = [
