@@ -1296,7 +1296,12 @@ export const treatments: Treatment[] = [
     ],
     idaFixedCost: { min: 500, max: 5000 },
     materials: [],
-    duration: "15-45 minutes"
+    duration: "15-45 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "v3MTyAg_fso"
   },
   {
     id: "denture",
