@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Award, MessageCircle } from "lucide-react";
+import { MapPin, Clock, Award, MessageCircle, Navigation } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
@@ -49,6 +49,15 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
       <div className="mt-4 flex gap-2">
         <Button asChild size="sm" className="flex-1">
           <Link to={`/dentists/${dentist.id}`}>View Profile</Link>
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          className="gap-1"
+          onClick={() => window.open(dentist.googleMapsUrl, "_blank")}
+        >
+          <Navigation className="h-3.5 w-3.5" />
+          Directions
         </Button>
         <Button
           size="sm"

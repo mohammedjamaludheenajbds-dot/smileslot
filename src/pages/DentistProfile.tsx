@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft } from "lucide-react";
+import { MapPin, Globe, Award, Clock, MessageCircle, ArrowLeft, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
@@ -54,6 +54,10 @@ const DentistProfile = () => {
               <Clock className="h-4 w-4 text-primary" />
               <span className="text-foreground">{dentist.experience} yrs exp</span>
             </div>
+            <button onClick={() => window.open(dentist.googleMapsUrl, "_blank")} className="flex items-center gap-2 rounded-lg bg-secondary p-3 text-sm hover:bg-primary/10 transition-colors">
+              <Navigation className="h-4 w-4 text-primary" />
+              <span className="text-foreground">Get Directions</span>
+            </button>
             <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to know more about your clinic.`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
               <MessageCircle className="h-4 w-4 text-success" />
               <span className="text-foreground">WhatsApp Chat</span>
