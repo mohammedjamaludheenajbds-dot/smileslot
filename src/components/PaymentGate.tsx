@@ -35,7 +35,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const upiLink = `upi://pay?pa=${UPI_ID}&pn=Erode%20Dental%20Hub&am=${AMOUNT}&cu=INR&tn=App%20Access%20Fee`;
+  const upiLink = `upi://pay?pa=${UPI_ID}&pn=Smile%20Slot&am=${AMOUNT}&cu=INR&tn=App%20Access%20Fee`;
 
   // QR code via a free API
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
@@ -86,7 +86,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
 
       markPaymentVerified();
       setStep("done");
-      toast.success("Payment verified! Welcome to Erode Dental Hub.");
+      toast.success("Payment verified! Welcome to Smile Slot.");
       setTimeout(onVerified, 1500);
     } catch (err: any) {
       toast.error("Submission failed: " + (err.message || "Please try again"));
@@ -130,7 +130,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
           <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <IndianRupee className="h-8 w-8 text-primary" />
           </div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Erode Dental Hub</h1>
+          <h1 className="font-display text-2xl font-bold text-foreground">Smile Slot</h1>
           <p className="mt-1 text-muted-foreground">One-time access fee of ₹{AMOUNT}</p>
         </div>
 
