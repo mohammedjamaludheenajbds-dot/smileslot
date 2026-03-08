@@ -122,7 +122,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Royal+Dental+Care+and+Implant+Center+Erode",
     achievements: ["Best Dental Hospital in Erode", "Highest standards of hygiene & sterilization", "Advanced dental implant technology", "Comprehensive patient-focused care"],
     treatments: ["Dental Implants", "Root Canal Treatment", "Crowns & Bridges", "Teeth Whitening", "Braces", "Extractions", "Dentures", "Cosmetic Dentistry"],
-    about: "Royal Dental Care and Implant Center is one of the Best Dental Clinics in Erode, providing quality patient care with highest standards of hygiene and sterilization."
+    about: "Royal Dental Care and Implant Center is one of the Best Dental Clinics in Erode, providing quality patient care with highest standards of hygiene and sterilization.",
+    emiAvailable: true
   },
   {
     id: "dr-faizal",
