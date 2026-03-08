@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { User, ClipboardList, Calendar, Heart, CalendarDays, MapPin, Clock, XCircle, FileText, Pill, Video } from "lucide-react";
+import { User, ClipboardList, Calendar, Heart, CalendarDays, MapPin, Clock, XCircle, FileText, Pill, Video, Home, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useAppointmentStore } from "@/stores/appointmentStore";
@@ -15,6 +15,18 @@ import { Link } from "react-router-dom";
 import MedicationReminders from "@/components/MedicationReminders";
 import PatientRecords from "@/components/PatientRecords";
 import VideoReviews from "@/components/VideoReviews";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const homeFormSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  age: z.number().int().min(1, "Age must be at least 1").max(150),
+  sex: z.string().min(1, "Please select sex"),
+  phone: z.string().trim().min(10, "Phone must be at least 10 digits").max(15),
+  address: z.string().trim().min(5, "Address is required").max(500),
+  condition: z.string().trim().min(1, "Please describe the condition").max(1000),
+  treatment_required: z.string().trim().min(1, "Please describe the treatment needed").max(1000),
+});
 
 const PatientPortal = () => {
   const [formData, setFormData] = useState({
