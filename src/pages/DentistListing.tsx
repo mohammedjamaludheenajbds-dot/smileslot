@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import DentistCard from "@/components/DentistCard";
 import { dentists } from "@/data/dentists";
 
-const areas = ["All", "Perundurai Road", "EVN Road", "Erode Fort", "Erode Town", "Brough Road", "Gandhiji Road", "Mettur Road", "Sathy Road", "Surampatti", "Karungalpalayam", "Bhavani", "Gobichettipalayam", "Anthiyur", "Dharapuram"];
+const areas = ["All", "Perundurai Road", "EVN Road", "Erode Fort", "Erode Town", "Brough Road", "Gandhiji Road", "Mettur Road", "Sathy Road", "Surampatti", "Karungalpalayam", "Bhavani", "Gobichettipalayam", "Anthiyur", "Dharapuram", "Perundurai", "Komarapalayam", "Salem"];
 const specs = ["All", "General", "Endodontics", "Orthodontics", "Prosthodontics", "Oral Surgery", "Periodontics", "Pediatric", "Implantology", "Cosmetic", "Laser", "Diagnostics"];
 
 const DentistListing = () => {
