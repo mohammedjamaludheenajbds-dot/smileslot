@@ -118,9 +118,12 @@ const DentistPortal = () => {
 
         <div className="mt-8">
           <Tabs defaultValue="appointments" className="w-full">
-            <TabsList className="mb-6 grid w-full grid-cols-5">
+            <TabsList className="mb-6 grid w-full grid-cols-6">
               <TabsTrigger value="appointments" className="gap-1 text-xs sm:text-sm">
                 <CalendarDays className="h-4 w-4 hidden sm:block" />Appointments
+              </TabsTrigger>
+              <TabsTrigger value="home-requests" className="gap-1 text-xs sm:text-sm">
+                <Home className="h-4 w-4 hidden sm:block" />Home Visits
               </TabsTrigger>
               <TabsTrigger value="prescriptions" className="gap-1 text-xs sm:text-sm">
                 <FileText className="h-4 w-4 hidden sm:block" />Prescriptions
