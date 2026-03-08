@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
 import BookAppointmentDialog from "@/components/BookAppointmentDialog";
+import InAppChat from "@/components/InAppChat";
 import { dentists } from "@/data/dentists";
 import { motion } from "framer-motion";
 
