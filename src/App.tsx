@@ -14,6 +14,7 @@ import PatientPortal from "./pages/PatientPortal";
 import DentistPortal from "./pages/DentistPortal";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import AdminPayments from "./pages/AdminPayments";
 import AIChatBot from "./components/AIChatBot";
 import PaymentGate, { isPaymentVerified } from "./components/PaymentGate";
 import { useAuthStore } from "./stores/authStore";
@@ -50,6 +51,7 @@ const AppContent = () => {
           <Route path="/dentist-portal" element={
             <ProtectedRoute allowedRole="doctor"><DentistPortal /></ProtectedRoute>
           } />
+          <Route path="/admin-payments" element={<AdminPayments />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
