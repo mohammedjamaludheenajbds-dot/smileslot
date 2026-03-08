@@ -1350,7 +1350,12 @@ export const treatments: Treatment[] = [
       { name: "Composite Resin", type: "Aesthetic", costAddon: 500, description: "Tooth-colored filling matching natural tooth shade" },
       { name: "Ceramic Inlay/Onlay", type: "Premium", costAddon: 3000, description: "Lab-made precision restoration for large cavities" }
     ],
-    duration: "20-40 minutes"
+    duration: "20-40 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600"
+    ],
+    youtubeId: "RY51wEOrKfQ"
   },
   {
     id: "veneer",
