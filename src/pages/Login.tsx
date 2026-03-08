@@ -39,7 +39,7 @@ const Login = () => {
           <p className="mt-1 text-muted-foreground">Select your role to continue</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <button
             onClick={() => setSelectedRole("patient")}
             className={`flex flex-col items-center gap-3 rounded-xl border p-6 transition-all ${
@@ -68,6 +68,21 @@ const Login = () => {
             </div>
             <span className="font-display font-bold text-foreground">Doctor</span>
             <span className="text-xs text-muted-foreground text-center">Manage clinic & prescriptions</span>
+          </button>
+
+          <button
+            onClick={() => setSelectedRole("home_patient")}
+            className={`flex flex-col items-center gap-3 rounded-xl border p-6 transition-all ${
+              selectedRole === "home_patient"
+                ? "border-primary bg-primary/5 ring-2 ring-primary"
+                : "hover:border-primary/40 hover:bg-secondary"
+            }`}
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+              <Home className="h-7 w-7 text-primary" />
+            </div>
+            <span className="font-display font-bold text-foreground">Home Visit</span>
+            <span className="text-xs text-muted-foreground text-center">Request home consultation for elderly/handicapped</span>
           </button>
         </div>
 
