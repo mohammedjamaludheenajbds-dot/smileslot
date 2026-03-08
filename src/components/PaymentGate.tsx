@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IndianRupee, Upload, CheckCircle, QrCode, Copy, Loader2 } from "lucide-react";
+import { IndianRupee, CheckCircle, Copy, Loader2, Smartphone, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,13 +28,17 @@ export const markPaymentVerified = () => {
 };
 
 const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
-  const [step, setStep] = useState<"pay" | "upload" | "done">("pay");
+  const [step, setStep] = useState<"pay" | "txn" | "done">("pay");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const [txnId, setTxnId] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const upiLink = `upi://pay?pa=${UPI_ID}&pn=Erode%20Dental%20Hub&am=${AMOUNT}&cu=INR&tn=App%20Access%20Fee`;
+
+  // QR code via a free API
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
 
   const handleCopyUPI = () => {
     navigator.clipboard.writeText(UPI_ID);
@@ -43,7 +47,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleProceedToUpload = () => {
+  const handleProceedToTxn = () => {
     if (!name.trim() || !phone.trim()) {
       toast.error("Please enter your name and phone number");
       return;
@@ -52,53 +56,42 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
       toast.error("Please enter a valid phone number");
       return;
     }
-    setStep("upload");
+    setStep("txn");
   };
 
-  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please upload an image file");
+  const handleSubmitTxn = async () => {
+    if (!txnId.trim()) {
+      toast.error("Please enter the UPI transaction ID");
+      return;
+    }
+    if (txnId.trim().length < 6) {
+      toast.error("Please enter a valid transaction ID");
       return;
     }
 
-    setUploading(true);
+    setSubmitting(true);
     try {
       const deviceId = generateDeviceId();
-      const ext = file.name.split(".").pop();
-      const filePath = `${deviceId}/${Date.now()}.${ext}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("payment-screenshots")
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: urlData } = supabase.storage
-        .from("payment-screenshots")
-        .getPublicUrl(filePath);
-
-      const { error: dbError } = await supabase.from("payments").insert({
+      const { error } = await supabase.from("payments").insert({
         user_name: name.trim(),
         phone: phone.trim(),
-        screenshot_url: urlData.publicUrl,
+        screenshot_url: txnId.trim(), // storing txn ID here
         amount: AMOUNT,
         device_id: deviceId,
         status: "approved",
       });
 
-      if (dbError) throw dbError;
+      if (error) throw error;
 
       markPaymentVerified();
       setStep("done");
       toast.success("Payment verified! Welcome to Erode Dental Hub.");
       setTimeout(onVerified, 1500);
     } catch (err: any) {
-      toast.error("Upload failed: " + (err.message || "Please try again"));
+      toast.error("Submission failed: " + (err.message || "Please try again"));
     } finally {
-      setUploading(false);
+      setSubmitting(false);
     }
   };
 
@@ -145,74 +138,67 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Your Name</Label>
-              <Input
-                id="name"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                maxLength={100}
-              />
+              <Input id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} maxLength={100} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                placeholder="Enter phone number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                maxLength={10}
-                inputMode="numeric"
-              />
+              <Input id="phone" placeholder="Enter phone number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} maxLength={10} inputMode="numeric" />
             </div>
 
-            <div className="rounded-xl border-2 border-dashed border-primary/30 bg-primary/5 p-4 text-center">
-              <QrCode className="mx-auto mb-2 h-10 w-10 text-primary" />
-              <p className="text-sm font-medium text-foreground">Pay ₹{AMOUNT} via UPI</p>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <code className="rounded bg-secondary px-3 py-1 text-sm font-semibold text-foreground">
-                  {UPI_ID}
-                </code>
-                <Button size="sm" variant="ghost" onClick={handleCopyUPI} className="h-8 px-2">
-                  {copied ? <CheckCircle className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
+            <div className="rounded-xl border-2 border-dashed border-primary/30 bg-primary/5 p-4 text-center space-y-3">
+              {/* QR Code */}
+              <p className="text-sm font-semibold text-foreground">Scan QR to Pay ₹{AMOUNT}</p>
+              <img src={qrUrl} alt="UPI QR Code" className="mx-auto h-48 w-48 rounded-lg border bg-white p-2" />
+
+              {/* UPI ID */}
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-xs text-muted-foreground">UPI ID:</span>
+                <code className="rounded bg-secondary px-3 py-1 text-sm font-semibold text-foreground">{UPI_ID}</code>
+                <Button size="sm" variant="ghost" onClick={handleCopyUPI} className="h-7 px-2">
+                  {copied ? <CheckCircle className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
                 </Button>
               </div>
+
+              {/* Pay via UPI app button (mobile) */}
               <a
                 href={upiLink}
-                className="mt-3 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                <IndianRupee className="h-4 w-4" /> Pay ₹{AMOUNT} via UPI App
+                <Smartphone className="h-4 w-4" /> Open UPI App
               </a>
             </div>
 
-            <Button onClick={handleProceedToUpload} className="w-full" size="lg">
-              I've Made the Payment → Upload Screenshot
+            <Button onClick={handleProceedToTxn} className="w-full" size="lg">
+              I've Made the Payment → Enter Transaction ID
             </Button>
           </div>
         )}
 
-        {step === "upload" && (
+        {step === "txn" && (
           <div className="space-y-4">
-            <div className="rounded-xl border-2 border-dashed border-primary/30 bg-primary/5 p-6 text-center">
-              <Upload className="mx-auto mb-2 h-10 w-10 text-primary" />
-              <p className="text-sm font-medium text-foreground">Upload Payment Screenshot</p>
+            <div className="rounded-xl border bg-primary/5 p-4 text-center">
+              <Hash className="mx-auto mb-2 h-8 w-8 text-primary" />
+              <p className="text-sm font-medium text-foreground">Enter UPI Transaction ID</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Upload a screenshot of your ₹{AMOUNT} payment to {UPI_ID}
+                You can find this in your UPI app's transaction history
               </p>
-              <label className="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-                {uploading ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" /> Uploading...</>
-                ) : (
-                  <><Upload className="h-4 w-4" /> Choose Screenshot</>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleScreenshotUpload}
-                  disabled={uploading}
-                />
-              </label>
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="txnId">Transaction ID / UTR Number</Label>
+              <Input
+                id="txnId"
+                placeholder="e.g. 412345678901"
+                value={txnId}
+                onChange={(e) => setTxnId(e.target.value.trim())}
+                maxLength={50}
+              />
+            </div>
+
+            <Button onClick={handleSubmitTxn} className="w-full" size="lg" disabled={submitting}>
+              {submitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying...</> : "Verify & Access App"}
+            </Button>
+
             <Button variant="ghost" onClick={() => setStep("pay")} className="w-full">
               ← Back
             </Button>
