@@ -15,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { role, name, isLoggedIn, logout } = useAuthStore();
   const { t } = useLanguageStore();
+  const { total: unreadTotal } = useUnreadChats();
 
   const navLinks = [
     { to: "/", label: t("nav.home"), show: true },
