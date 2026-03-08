@@ -29,6 +29,8 @@ export interface Treatment {
   materials: Material[];
   duration: string;
   videoUrl?: string;
+  images: string[];
+  youtubeId?: string;
 }
 
 export interface Material {
