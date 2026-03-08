@@ -101,7 +101,8 @@ export const dentists: Dentist[] = [
     googleMapsUrl: "https://maps.google.com/?q=Dentiq+Clinic+Perundurai+Road+Erode",
     achievements: ["Super Speciality Laser Dental Hospital since 2013", "ADA, OSHA & CDC sterilization standards", "4.8 rating on Justdial with 237 ratings", "State-of-the-art laser equipment"],
     treatments: ["Laser Dentistry", "Orthodontics", "Pedodontics", "Conservative Dentistry", "Prosthodontics", "Endodontics", "Cosmetic Dentistry", "Implant Dentistry", "Oral & Maxillofacial Surgery"],
-    about: "DentiQ provides exceptional quality care with highly specialised doctors and state-of-the-art equipment, strictly adhering to ADA, OSHA, and CDC sterilization protocols."
+    about: "DentiQ provides exceptional quality care with highly specialised doctors and state-of-the-art equipment, strictly adhering to ADA, OSHA, and CDC sterilization protocols.",
+    emiAvailable: true
   },
   {
     id: "dr-royal",
