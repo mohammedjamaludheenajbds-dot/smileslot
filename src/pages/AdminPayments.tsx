@@ -51,6 +51,7 @@ const AdminPayments = () => {
   const [pinError, setPinError] = useState(false);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
+  const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
