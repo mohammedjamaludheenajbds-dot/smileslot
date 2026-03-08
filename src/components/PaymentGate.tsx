@@ -130,7 +130,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
           <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <IndianRupee className="h-8 w-8 text-primary" />
           </div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Erode Dental Hub</h1>
+          <h1 className="font-display text-2xl font-bold text-foreground">Smile Slot</h1>
           <p className="mt-1 text-muted-foreground">One-time access fee of ₹{AMOUNT}</p>
         </div>
 
