@@ -53,7 +53,7 @@ const PatientPortal = () => {
       case "upcoming":
         return <Badge className="bg-primary/10 text-primary border-primary/20">Upcoming</Badge>;
       case "completed":
-        return <Badge className="bg-green-500/10 text-green-600 border-green-500/20">Completed</Badge>;
+        return <Badge className="bg-success/10 text-success border-success/20">Completed</Badge>;
       case "cancelled":
         return <Badge variant="destructive" className="opacity-70">Cancelled</Badge>;
       default:
