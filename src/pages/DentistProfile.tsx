@@ -54,13 +54,9 @@ const DentistProfile = () => {
               <Clock className="h-4 w-4 text-primary" />
               <span className="text-foreground">{dentist.experience} yrs exp</span>
             </div>
-            <button onClick={() => window.open(`tel:${dentist.phone}`)} className="flex items-center gap-2 rounded-lg bg-secondary p-3 text-sm hover:bg-primary/10 transition-colors">
-              <Phone className="h-4 w-4 text-primary" />
-              <span className="text-foreground">{dentist.phone}</span>
-            </button>
-            <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
+            <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to know more about your clinic.`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
               <MessageCircle className="h-4 w-4 text-success" />
-              <span className="text-foreground">WhatsApp</span>
+              <span className="text-foreground">WhatsApp Chat</span>
             </button>
           </div>
 
