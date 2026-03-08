@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { User, ClipboardList, Calendar, Heart, CalendarDays, MapPin, Clock, XCircle, FileText, Pill, Video } from "lucide-react";
+import { User, ClipboardList, Calendar, Heart, CalendarDays, MapPin, Clock, XCircle, FileText, Pill, Video, Home, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useAppointmentStore } from "@/stores/appointmentStore";
@@ -15,6 +15,18 @@ import { Link } from "react-router-dom";
 import MedicationReminders from "@/components/MedicationReminders";
 import PatientRecords from "@/components/PatientRecords";
 import VideoReviews from "@/components/VideoReviews";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const homeFormSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  age: z.number().int().min(1, "Age must be at least 1").max(150),
+  sex: z.string().min(1, "Please select sex"),
+  phone: z.string().trim().min(10, "Phone must be at least 10 digits").max(15),
+  address: z.string().trim().min(5, "Address is required").max(500),
+  condition: z.string().trim().min(1, "Please describe the condition").max(1000),
+  treatment_required: z.string().trim().min(1, "Please describe the treatment needed").max(1000),
+});
 
 const PatientPortal = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +39,24 @@ const PatientPortal = () => {
   const [filter, setFilter] = useState<"all" | "upcoming" | "completed" | "cancelled">("all");
   const { appointments, cancelAppointment } = useAppointmentStore();
   const { t } = useLanguageStore();
+
+  // Home consultation form
+  const [homeForm, setHomeForm] = useState({
+    name: "", age: "", sex: "", phone: "", address: "", condition: "", treatment_required: "",
+  });
+  const [homeLoading, setHomeLoading] = useState(false);
+  const updateHome = (field: string, value: string) => setHomeForm((f) => ({ ...f, [field]: value }));
+
+  const handleHomeSubmit = async () => {
+    const parsed = homeFormSchema.safeParse({ ...homeForm, age: homeForm.age ? parseInt(homeForm.age) : 0 });
+    if (!parsed.success) { toast.error(parsed.error.errors[0].message); return; }
+    setHomeLoading(true);
+    const { error } = await supabase.from("home_consultations" as any).insert([parsed.data] as any);
+    setHomeLoading(false);
+    if (error) { toast.error("Failed to submit. Please try again."); return; }
+    toast.success(t("homeConsult.success"));
+    setHomeForm({ name: "", age: "", sex: "", phone: "", address: "", condition: "", treatment_required: "" });
+  };
 
   const filteredAppointments = appointments.filter((a) =>
     filter === "all" ? true : a.status === filter
@@ -72,7 +102,7 @@ const PatientPortal = () => {
 
         <form onSubmit={handleSubmit} className="mt-8">
           <Tabs defaultValue="appointments" className="w-full">
-            <TabsList className="mb-6 grid w-full grid-cols-4 sm:grid-cols-8">
+            <TabsList className="mb-6 grid w-full grid-cols-4 sm:grid-cols-9">
               <TabsTrigger value="appointments" className="gap-1 text-xs">
                 <CalendarDays className="h-3.5 w-3.5 hidden sm:block" />
                 <span>{t("tab.appointments")}</span>
@@ -88,6 +118,7 @@ const PatientPortal = () => {
               <TabsTrigger value="records" className="gap-1 text-xs"><FileText className="h-3.5 w-3.5 hidden sm:block" />{t("tab.records")}</TabsTrigger>
               <TabsTrigger value="medications" className="gap-1 text-xs"><Pill className="h-3.5 w-3.5 hidden sm:block" />{t("tab.medications")}</TabsTrigger>
               <TabsTrigger value="reviews" className="gap-1 text-xs"><Video className="h-3.5 w-3.5 hidden sm:block" />{t("tab.reviews")}</TabsTrigger>
+              <TabsTrigger value="home-consult" className="gap-1 text-xs"><Home className="h-3.5 w-3.5 hidden sm:block" />{t("tab.homeConsult")}</TabsTrigger>
               <TabsTrigger value="booking" className="gap-1 text-xs"><Calendar className="h-3.5 w-3.5 hidden sm:block" />{t("tab.booking")}</TabsTrigger>
             </TabsList>
 
@@ -206,6 +237,57 @@ const PatientPortal = () => {
             {/* Video Reviews Tab */}
             <TabsContent value="reviews" className="rounded-xl border bg-card p-6 card-shadow">
               <VideoReviews />
+            </TabsContent>
+
+            {/* Home Consultation Tab */}
+            <TabsContent value="home-consult" className="space-y-4 rounded-xl border bg-card p-6 card-shadow">
+              <h3 className="font-display text-lg font-bold text-foreground">{t("homeConsult.title")}</h3>
+              <div className="rounded-lg bg-primary/5 p-4 text-sm">
+                <p className="font-medium text-foreground flex items-center gap-2">
+                  <Heart className="h-4 w-4 text-primary" />{t("homeConsult.infoTitle")}
+                </p>
+                <p className="mt-1 text-muted-foreground">{t("homeConsult.infoDesc")}</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <Label className="flex items-center gap-1.5"><User className="h-3.5 w-3.5 text-primary" />{t("homeConsult.name")}</Label>
+                  <Input value={homeForm.name} onChange={(e) => updateHome("name", e.target.value)} placeholder="Patient full name" />
+                </div>
+                <div>
+                  <Label className="flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5 text-primary" />{t("homeConsult.age")}</Label>
+                  <Input type="number" value={homeForm.age} onChange={(e) => updateHome("age", e.target.value)} placeholder="Age" min={1} max={150} />
+                </div>
+                <div>
+                  <Label>{t("homeConsult.sex")}</Label>
+                  <Select value={homeForm.sex} onValueChange={(v) => updateHome("sex", v)}>
+                    <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Male">Male</SelectItem>
+                      <SelectItem value="Female">Female</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="flex items-center gap-1.5"><Phone className="h-3.5 w-3.5 text-primary" />{t("homeConsult.phone")}</Label>
+                  <Input value={homeForm.phone} onChange={(e) => updateHome("phone", e.target.value)} placeholder="+91 XXXXX XXXXX" />
+                </div>
+              </div>
+              <div>
+                <Label className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-primary" />{t("homeConsult.address")}</Label>
+                <Textarea value={homeForm.address} onChange={(e) => updateHome("address", e.target.value)} placeholder="Full home address for the dentist visit" rows={3} />
+              </div>
+              <div>
+                <Label>{t("homeConsult.condition")}</Label>
+                <Textarea value={homeForm.condition} onChange={(e) => updateHome("condition", e.target.value)} placeholder="Describe the dental condition or problem" rows={3} />
+              </div>
+              <div>
+                <Label>{t("homeConsult.treatment")}</Label>
+                <Textarea value={homeForm.treatment_required} onChange={(e) => updateHome("treatment_required", e.target.value)} placeholder="What treatment do you think is needed?" rows={3} />
+              </div>
+              <Button className="w-full" onClick={handleHomeSubmit} disabled={homeLoading}>
+                {homeLoading ? "Submitting..." : t("homeConsult.submit")}
+              </Button>
             </TabsContent>
 
             {/* Booking Tab */}
