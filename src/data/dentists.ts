@@ -1247,7 +1247,12 @@ export const treatments: Treatment[] = [
       { name: "Zoom Whitening System", type: "Premium", costAddon: 5000, description: "Advanced LED-activated system for faster, brighter results" },
       { name: "Laser Whitening", type: "Premium", costAddon: 8000, description: "Cutting-edge laser technology for maximum whitening in one session" }
     ],
-    duration: "60-90 minutes"
+    duration: "60-90 minutes",
+    images: [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600",
+      "https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=600"
+    ],
+    youtubeId: "H1w3GN8nyOE"
   },
   {
     id: "crown",
