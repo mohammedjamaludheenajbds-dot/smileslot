@@ -383,6 +383,76 @@ const AdminPayments = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="clinics">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Clinic Listings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <p className="py-8 text-center text-muted-foreground">Loading...</p>
+              ) : clinicSubs.length === 0 ? (
+                <p className="py-8 text-center text-muted-foreground">No clinic submissions yet</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Doctor</TableHead>
+                        <TableHead>Clinic</TableHead>
+                        <TableHead>Specialization</TableHead>
+                        <TableHead>Area</TableHead>
+                        <TableHead>Phone</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {clinicSubs.map((c, i) => (
+                        <TableRow key={c.id}>
+                          <TableCell className="font-medium text-muted-foreground">{i + 1}</TableCell>
+                          <TableCell className="font-medium">{c.doctor_name}</TableCell>
+                          <TableCell>{c.clinic_name}</TableCell>
+                          <TableCell>{c.specialization || "—"}</TableCell>
+                          <TableCell>{c.area || "—"}</TableCell>
+                          <TableCell>{c.phone}</TableCell>
+                          <TableCell>
+                            <Badge variant={c.status === "approved" ? "default" : c.status === "rejected" ? "destructive" : "secondary"}>
+                              {c.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
+                              {c.status === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
+                              {c.status === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
+                              {c.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground">
+                            {format(new Date(c.created_at), "dd MMM yyyy")}
+                          </TableCell>
+                          <TableCell>
+                            {c.status === "pending" ? (
+                              <div className="flex gap-2">
+                                <Button size="sm" onClick={() => handleClinicAction(c.id, "approved")}>
+                                  <CheckCircle className="mr-1 h-3 w-3" /> Approve
+                                </Button>
+                                <Button size="sm" variant="destructive" onClick={() => handleClinicAction(c.id, "rejected")}>
+                                  <XCircle className="mr-1 h-3 w-3" /> Reject
+                                </Button>
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
