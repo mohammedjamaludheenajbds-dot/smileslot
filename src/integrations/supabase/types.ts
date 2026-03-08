@@ -41,6 +41,45 @@ export type Database = {
         }
         Relationships: []
       }
+      clinic_reviews: {
+        Row: {
+          comment: string
+          created_at: string
+          dentist_id: string
+          id: string
+          photo_url: string | null
+          rating: number
+          reviewer_name: string
+          treatment: string
+          video_url: string | null
+          youtube_id: string | null
+        }
+        Insert: {
+          comment?: string
+          created_at?: string
+          dentist_id: string
+          id?: string
+          photo_url?: string | null
+          rating?: number
+          reviewer_name: string
+          treatment?: string
+          video_url?: string | null
+          youtube_id?: string | null
+        }
+        Update: {
+          comment?: string
+          created_at?: string
+          dentist_id?: string
+          id?: string
+          photo_url?: string | null
+          rating?: number
+          reviewer_name?: string
+          treatment?: string
+          video_url?: string | null
+          youtube_id?: string | null
+        }
+        Relationships: []
+      }
       home_consultations: {
         Row: {
           address: string
