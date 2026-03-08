@@ -46,6 +46,7 @@ const InAppChat = ({ dentistId, dentistName, trigger }: InAppChatProps) => {
   // Fetch messages when dialog opens
   useEffect(() => {
     if (!open) return;
+    markChatRead(dentistId);
 
     const fetchMessages = async () => {
       setLoading(true);

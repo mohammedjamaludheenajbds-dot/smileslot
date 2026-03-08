@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, User, Stethoscope } from "lucide-react";
+import { Menu, X, LogOut, User, Stethoscope, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
 import LanguageSwitcher from "./LanguageSwitcher";
 import VoiceControl from "./VoiceControl";
 import { useAuthStore } from "@/stores/authStore";
 import { useLanguageStore } from "@/stores/languageStore";
+import { useUnreadChats } from "@/hooks/useUnreadChats";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
