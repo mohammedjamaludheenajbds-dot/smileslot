@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import NotificationBell from "./NotificationBell";
 
 const navLinks = [
   { to: "/", label: "Home" },
