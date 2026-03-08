@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import DentistCard from "@/components/DentistCard";
 import { dentists } from "@/data/dentists";
 
-const areas = ["All", "Brough Road", "Perundurai Road", "EVN Road", "Gandhiji Road", "Mettur Road", "Bhavani", "Erode Fort", "Erode Town", "Sathy Road", "Surampatti", "Karungalpalayam"];
-const specs = ["All", "Prosthodontics", "Orthodontics", "Oral Surgery", "Pediatric", "Endodontics", "Periodontics", "Implantology", "Cosmetic", "General", "Conservative", "Oral Medicine"];
+const areas = ["All", "Perundurai Road", "EVN Road", "Erode Fort", "Erode Town", "Brough Road", "Gandhiji Road", "Mettur Road", "Sathy Road", "Surampatti", "Karungalpalayam", "Bhavani", "Gobichettipalayam", "Anthiyur", "Dharapuram"];
+const specs = ["All", "General", "Endodontics", "Orthodontics", "Prosthodontics", "Oral Surgery", "Periodontics", "Pediatric", "Implantology", "Cosmetic", "Laser", "Diagnostics"];
 
 const DentistListing = () => {
   const [search, setSearch] = useState("");

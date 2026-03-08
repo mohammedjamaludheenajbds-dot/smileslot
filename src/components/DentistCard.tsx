@@ -54,6 +54,15 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
           size="sm"
           variant="outline"
           className="gap-1"
+          onClick={() => window.open(dentist.googleMapsUrl, "_blank")}
+        >
+          <Navigation className="h-3.5 w-3.5" />
+          Directions
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          className="gap-1"
           onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`, "_blank")}
         >
           <MessageCircle className="h-3.5 w-3.5" />
