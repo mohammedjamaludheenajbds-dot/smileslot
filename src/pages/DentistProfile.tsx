@@ -125,6 +125,9 @@ const DentistProfile = () => {
             </div>
           </div>
 
+          {/* Patient Reviews */}
+          <ClinicReviews dentistId={dentist.id} />
+
           <div className="mt-8 space-y-3">
             <BookAppointmentDialog dentist={dentist} />
             <InAppChat dentistId={dentist.id} dentistName={dentist.name} />
