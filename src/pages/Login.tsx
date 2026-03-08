@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/authStore";
-import { Stethoscope, User } from "lucide-react";
+import { Stethoscope, User, Home } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
