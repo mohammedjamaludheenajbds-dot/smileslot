@@ -17,6 +17,7 @@ export interface Dentist {
   achievements: string[];
   treatments: string[];
   about: string;
+  emiAvailable?: boolean;
 }
 
 export interface Treatment {
