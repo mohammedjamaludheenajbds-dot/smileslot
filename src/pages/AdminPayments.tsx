@@ -31,6 +31,8 @@ interface DoctorApplication {
   specialization: string;
   status: string;
   created_at: string;
+  dci_certificate_url: string;
+  id_proof_url: string;
 }
 
 interface ClinicSubmission {
