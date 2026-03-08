@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { useAppointmentStore } from "@/stores/appointmentStore";
 import { useLanguageStore } from "@/stores/languageStore";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import MedicationReminders from "@/components/MedicationReminders";
 import PatientRecords from "@/components/PatientRecords";
 import VideoReviews from "@/components/VideoReviews";
@@ -29,6 +29,8 @@ const homeFormSchema = z.object({
 });
 
 const PatientPortal = () => {
+  const [searchParams] = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "appointments";
   const [formData, setFormData] = useState({
     name: "", age: "", sex: "", height: "", weight: "",
     phone: "", email: "",
@@ -101,7 +103,7 @@ const PatientPortal = () => {
         </motion.div>
 
         <form onSubmit={handleSubmit} className="mt-8">
-          <Tabs defaultValue="appointments" className="w-full">
+          <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="mb-6 grid w-full grid-cols-4 sm:grid-cols-9">
               <TabsTrigger value="appointments" className="gap-1 text-xs">
                 <CalendarDays className="h-3.5 w-3.5 hidden sm:block" />
