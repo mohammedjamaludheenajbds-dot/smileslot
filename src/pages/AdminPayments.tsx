@@ -223,6 +223,17 @@ const AdminPayments = () => {
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Building2 className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Pending Clinics</p>
+              <p className="text-2xl font-bold text-foreground">{pendingClinics.length}</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs defaultValue="payments" className="space-y-4">
@@ -233,6 +244,14 @@ const AdminPayments = () => {
             {pendingApps.length > 0 && (
               <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
                 {pendingApps.length}
+              </span>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="clinics" className="relative">
+            Clinic Listings
+            {pendingClinics.length > 0 && (
+              <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                {pendingClinics.length}
               </span>
             )}
           </TabsTrigger>
