@@ -472,23 +472,40 @@ const DentistPortal = () => {
               </div>
             </TabsContent>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleClinicSubmit}>
               <TabsContent value="clinic" className="space-y-4 rounded-xl border bg-card p-6 card-shadow">
                 <h3 className="font-display text-lg font-bold text-foreground">Clinic Information</h3>
+                {clinicStatus && (
+                  <div className={`rounded-lg p-3 text-sm ${clinicStatus === "approved" ? "bg-green-500/10 text-green-700" : clinicStatus === "rejected" ? "bg-destructive/10 text-destructive" : "bg-yellow-500/10 text-yellow-700"}`}>
+                    {clinicStatus === "approved" && "✅ Your clinic is approved and listed!"}
+                    {clinicStatus === "pending" && "⏳ Your clinic info is pending admin approval."}
+                    {clinicStatus === "rejected" && "❌ Your clinic was rejected. Please update and resubmit."}
+                  </div>
+                )}
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div><Label>Doctor Name *</Label><Input required placeholder="Dr. Full Name" /></div>
-                  <div><Label>Qualification *</Label><Input required placeholder="e.g., BDS, MDS (Specialization)" /></div>
-                  <div><Label>Clinic Name *</Label><Input required placeholder="Clinic name" /></div>
-                  <div><Label>Specialization *</Label><Input required placeholder="e.g., Orthodontics" /></div>
-                  <div className="sm:col-span-2"><Label>Clinic Address *</Label><Textarea required placeholder="Full clinic address in Erode district" /></div>
-                  <div><Label>Phone Number *</Label><Input required placeholder="+91 XXXXX XXXXX" /></div>
-                  <div><Label>WhatsApp Number *</Label><Input required placeholder="+91 XXXXX XXXXX" /></div>
-                  <div><Label>Website</Label><Input placeholder="https://yourclinic.com" /></div>
-                  <div><Label>Years of Experience *</Label><Input type="number" required placeholder="Years" /></div>
+                  <div><Label>Doctor Name *</Label><Input required value={clinicForm.doctor_name} onChange={(e) => setClinicForm({...clinicForm, doctor_name: e.target.value})} placeholder="Dr. Full Name" /></div>
+                  <div><Label>Qualification *</Label><Input required value={clinicForm.qualification} onChange={(e) => setClinicForm({...clinicForm, qualification: e.target.value})} placeholder="e.g., BDS, MDS" /></div>
+                  <div><Label>Clinic Name *</Label><Input required value={clinicForm.clinic_name} onChange={(e) => setClinicForm({...clinicForm, clinic_name: e.target.value})} placeholder="Clinic name" /></div>
+                  <div><Label>Specialization *</Label><Input required value={clinicForm.specialization} onChange={(e) => setClinicForm({...clinicForm, specialization: e.target.value})} placeholder="e.g., Orthodontics" /></div>
+                  <div className="sm:col-span-2"><Label>Clinic Address *</Label><Textarea required value={clinicForm.address} onChange={(e) => setClinicForm({...clinicForm, address: e.target.value})} placeholder="Full clinic address" /></div>
+                  <div><Label>Area *</Label><Input required value={clinicForm.area} onChange={(e) => setClinicForm({...clinicForm, area: e.target.value})} placeholder="e.g., Erode Town, Komarapalayam" /></div>
+                  <div><Label>Phone Number *</Label><Input required value={clinicForm.phone} onChange={(e) => setClinicForm({...clinicForm, phone: e.target.value})} placeholder="+91 XXXXX XXXXX" /></div>
+                  <div><Label>WhatsApp Number</Label><Input value={clinicForm.whatsapp} onChange={(e) => setClinicForm({...clinicForm, whatsapp: e.target.value})} placeholder="+91 XXXXX XXXXX" /></div>
+                  <div><Label>Website</Label><Input value={clinicForm.website} onChange={(e) => setClinicForm({...clinicForm, website: e.target.value})} placeholder="https://yourclinic.com" /></div>
+                  <div><Label>Years of Experience *</Label><Input type="number" required value={clinicForm.experience} onChange={(e) => setClinicForm({...clinicForm, experience: e.target.value})} placeholder="Years" /></div>
+                  <div><Label>Google Maps URL</Label><Input value={clinicForm.google_maps_url} onChange={(e) => setClinicForm({...clinicForm, google_maps_url: e.target.value})} placeholder="https://maps.google.com/..." /></div>
+                  <div className="flex items-center gap-2">
+                    <Switch checked={clinicForm.emi_available} onCheckedChange={(v) => setClinicForm({...clinicForm, emi_available: v})} />
+                    <Label>EMI Available</Label>
+                  </div>
                 </div>
-                <div><Label>About / Bio</Label><Textarea placeholder="Brief description about your practice, approach, and expertise" /></div>
-                <div><Label>Achievements & Awards</Label><Textarea placeholder="List your achievements, certifications, and awards (one per line)" /></div>
-                <Button type="submit" className="w-full mt-4">Save Clinic Info</Button>
+                <div><Label>About / Bio</Label><Textarea value={clinicForm.about} onChange={(e) => setClinicForm({...clinicForm, about: e.target.value})} placeholder="Brief description about your practice" /></div>
+                <div><Label>Treatments (comma separated)</Label><Textarea value={clinicForm.treatments} onChange={(e) => setClinicForm({...clinicForm, treatments: e.target.value})} placeholder="Root Canal, Implants, Braces, ..." /></div>
+                <div><Label>Achievements (one per line)</Label><Textarea value={clinicForm.achievements} onChange={(e) => setClinicForm({...clinicForm, achievements: e.target.value})} placeholder="List achievements, certifications..." /></div>
+                <Button type="submit" className="w-full mt-4" disabled={clinicSubmitting || clinicStatus === "approved"}>
+                  {clinicSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {clinicStatus === "approved" ? "Clinic Already Listed" : clinicStatus === "pending" ? "Resubmit Clinic Info" : "Submit Clinic for Approval"}
+                </Button>
               </TabsContent>
 
               <TabsContent value="pricing" className="space-y-4 rounded-xl border bg-card p-6 card-shadow">
