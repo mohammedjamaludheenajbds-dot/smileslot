@@ -40,6 +40,24 @@ const PatientPortal = () => {
   const { appointments, cancelAppointment } = useAppointmentStore();
   const { t } = useLanguageStore();
 
+  // Home consultation form
+  const [homeForm, setHomeForm] = useState({
+    name: "", age: "", sex: "", phone: "", address: "", condition: "", treatment_required: "",
+  });
+  const [homeLoading, setHomeLoading] = useState(false);
+  const updateHome = (field: string, value: string) => setHomeForm((f) => ({ ...f, [field]: value }));
+
+  const handleHomeSubmit = async () => {
+    const parsed = homeFormSchema.safeParse({ ...homeForm, age: homeForm.age ? parseInt(homeForm.age) : 0 });
+    if (!parsed.success) { toast.error(parsed.error.errors[0].message); return; }
+    setHomeLoading(true);
+    const { error } = await supabase.from("home_consultations" as any).insert([parsed.data] as any);
+    setHomeLoading(false);
+    if (error) { toast.error("Failed to submit. Please try again."); return; }
+    toast.success(t("homeConsult.success"));
+    setHomeForm({ name: "", age: "", sex: "", phone: "", address: "", condition: "", treatment_required: "" });
+  };
+
   const filteredAppointments = appointments.filter((a) =>
     filter === "all" ? true : a.status === filter
   ).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
