@@ -80,6 +80,36 @@ export type Database = {
         }
         Relationships: []
       }
+      doctor_applications: {
+        Row: {
+          clinic_name: string
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          specialization: string
+          status: string
+        }
+        Insert: {
+          clinic_name: string
+          created_at?: string
+          id?: string
+          name: string
+          phone: string
+          specialization?: string
+          status?: string
+        }
+        Update: {
+          clinic_name?: string
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          specialization?: string
+          status?: string
+        }
+        Relationships: []
+      }
       home_consultations: {
         Row: {
           address: string
