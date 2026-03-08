@@ -35,7 +35,7 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const upiLink = `upi://pay?pa=${UPI_ID}&pn=SmileSlot&am=${AMOUNT}.00&cu=INR&tn=AppAccessFee&mode=00`;
+  const upiLink = `upi://pay?pa=${UPI_ID}&pn=SmileSlot&am=${AMOUNT}.00&cu=INR&tn=AppAccessFee`;
 
   // QR code via a free API
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
