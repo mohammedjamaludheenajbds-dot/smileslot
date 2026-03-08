@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthStore } from "@/stores/authStore";
+import { markChatRead } from "@/hooks/useUnreadChats";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
@@ -45,6 +46,7 @@ const InAppChat = ({ dentistId, dentistName, trigger }: InAppChatProps) => {
   // Fetch messages when dialog opens
   useEffect(() => {
     if (!open) return;
+    markChatRead(dentistId);
 
     const fetchMessages = async () => {
       setLoading(true);
@@ -80,6 +82,7 @@ const InAppChat = ({ dentistId, dentistName, trigger }: InAppChatProps) => {
             if (prev.some((m) => m.id === (payload.new as ChatMessage).id)) return prev;
             return [...prev, payload.new as ChatMessage];
           });
+          markChatRead(dentistId);
         }
       )
       .subscribe();

@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import BookAppointmentDialog from "./BookAppointmentDialog";
 import InAppChat from "./InAppChat";
+import { useUnreadChats } from "@/hooks/useUnreadChats";
 import type { Dentist } from "@/data/dentists";
 
 const DentistCard = ({ dentist }: { dentist: Dentist }) => {
+  const { getCount } = useUnreadChats(dentist.id);
+  const unread = getCount(dentist.id);
+
   return (
     <div className="group rounded-xl border bg-card p-5 transition-all duration-300 card-shadow hover:card-shadow-hover">
       <div className="flex gap-4">
@@ -72,9 +76,14 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
             dentistId={dentist.id}
             dentistName={dentist.name}
             trigger={
-              <Button size="sm" variant="outline" className="gap-1">
+              <Button size="sm" variant="outline" className="gap-1 relative">
                 <MessageCircle className="h-3.5 w-3.5" />
                 Chat
+                {unread > 0 && (
+                  <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold text-destructive-foreground">
+                    {unread > 9 ? "9+" : unread}
+                  </span>
+                )}
               </Button>
             }
           />

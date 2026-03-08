@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, User, Stethoscope } from "lucide-react";
+import { Menu, X, LogOut, User, Stethoscope, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
 import LanguageSwitcher from "./LanguageSwitcher";
 import VoiceControl from "./VoiceControl";
 import { useAuthStore } from "@/stores/authStore";
 import { useLanguageStore } from "@/stores/languageStore";
+import { useUnreadChats } from "@/hooks/useUnreadChats";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { role, name, isLoggedIn, logout } = useAuthStore();
   const { t } = useLanguageStore();
+  const { total: unreadTotal } = useUnreadChats();
 
   const navLinks = [
     { to: "/", label: t("nav.home"), show: true },
@@ -60,6 +62,18 @@ const Navbar = () => {
         <div className="flex items-center gap-1.5">
           <VoiceControl />
           <LanguageSwitcher />
+          {isLoggedIn && (
+            <Button variant="ghost" size="icon" className="relative" asChild>
+              <Link to="/dentists">
+                <MessageCircle className="h-5 w-5" />
+                {unreadTotal > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                    {unreadTotal > 99 ? "99+" : unreadTotal}
+                  </span>
+                )}
+              </Link>
+            </Button>
+          )}
           <NotificationBell />
           {isLoggedIn ? (
             <>
