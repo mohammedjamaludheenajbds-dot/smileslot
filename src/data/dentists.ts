@@ -1981,10 +1981,10 @@ export const dentists: Dentist[] = [
     whatsapp: "+91 90000 00000",
     website: "",
     image: "/placeholder.svg",
-    googleMapsUrl: "https://maps.google.com/?q=Dr+Vijay+Advanced+Dental+Care+Implant+Center+Erode",
-    achievements: ["Advanced implant specialist", "Full mouth rehabilitation expert", "Modern digital dentistry equipment", "High patient satisfaction rate"],
-    treatments: ["Dental Implants", "Full Mouth Rehabilitation", "Crowns & Bridges", "Root Canal Treatment", "Braces", "Smile Design", "Teeth Whitening", "Dentures"],
-    about: "Dr. Vijay's Advanced Dental Care & Implant Center offers comprehensive dental care with a focus on advanced implant procedures and full mouth rehabilitation in Erode.",
+    googleMapsUrl: "https://maps.google.com/?q=Dr+Vijay+Advanced+Dental+Care+Implant+Center+Komarapalayam",
+    achievements: ["MDS in Oral Surgery", "Advanced implant specialist", "Full mouth rehabilitation expert", "Modern digital dentistry equipment"],
+    treatments: ["Dental Implants", "Oral Surgery", "Wisdom Tooth Extraction", "Full Mouth Rehabilitation", "Crowns & Bridges", "Root Canal Treatment", "Braces", "Smile Design", "Teeth Whitening", "Dentures"],
+    about: "Dr. Vijay Thyagarajan, MDS (Oral Surgery), runs Dr. Vijay's Advanced Dental Care & Implant Center in Komarapalayam. The clinic offers comprehensive dental care with expertise in oral surgery, advanced implant procedures, and full mouth rehabilitation.",
     emiAvailable: true
   },
 ];
