@@ -1,20 +1,28 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, CalendarDays } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, CalendarDays, LogOut, User, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
-
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/dentists", label: "Find Dentists" },
-  { to: "/treatments", label: "Treatments" },
-  { to: "/patient-portal", label: "Patient Portal" },
-  { to: "/dentist-portal", label: "Dentist Portal" },
-];
+import { useAuthStore } from "@/stores/authStore";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { role, name, isLoggedIn, logout } = useAuthStore();
+
+  const navLinks = [
+    { to: "/", label: "Home", show: true },
+    { to: "/dentists", label: "Find Dentists", show: true },
+    { to: "/treatments", label: "Treatments", show: true },
+    { to: "/patient-portal", label: "Patient Portal", show: role === "patient" },
+    { to: "/dentist-portal", label: "Doctor Portal", show: role === "doctor" },
+  ].filter((l) => l.show);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="sticky top-0 z-50 glass-card border-b">
@@ -47,12 +55,22 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2">
           <NotificationBell />
-          <Button asChild size="sm" className="hidden sm:flex gap-2">
-            <Link to="/dentists">
-              <CalendarDays className="h-4 w-4" />
-              Book Now
-            </Link>
-          </Button>
+          {isLoggedIn ? (
+            <>
+              <div className="hidden items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 text-xs font-medium sm:flex">
+                {role === "doctor" ? <Stethoscope className="h-3.5 w-3.5 text-primary" /> : <User className="h-3.5 w-3.5 text-primary" />}
+                <span className="text-foreground max-w-[100px] truncate">{name}</span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-1 text-muted-foreground">
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
+            </>
+          ) : (
+            <Button asChild size="sm" className="gap-2">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -78,12 +96,21 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Button asChild size="sm" className="mt-2 w-full gap-2">
-            <Link to="/dentists">
-              <CalendarDays className="h-4 w-4" />
-              Book Now
-            </Link>
-          </Button>
+          {isLoggedIn ? (
+            <div className="mt-2 flex items-center justify-between rounded-lg bg-secondary px-3 py-2">
+              <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+                {role === "doctor" ? <Stethoscope className="h-4 w-4 text-primary" /> : <User className="h-4 w-4 text-primary" />}
+                {name}
+              </span>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <Button asChild size="sm" className="mt-2 w-full">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
         </div>
       )}
     </nav>
