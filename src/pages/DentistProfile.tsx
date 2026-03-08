@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import StarRating from "@/components/StarRating";
 import BookAppointmentDialog from "@/components/BookAppointmentDialog";
+import InAppChat from "@/components/InAppChat";
 import { dentists } from "@/data/dentists";
 import { motion } from "framer-motion";
 
@@ -59,10 +60,16 @@ const DentistProfile = () => {
               <Navigation className="h-4 w-4 text-primary" />
               <span className="text-foreground">Get Directions</span>
             </button>
-            <button onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to know more about your clinic.`)} className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
-              <MessageCircle className="h-4 w-4 text-success" />
-              <span className="text-foreground">WhatsApp Chat</span>
-            </button>
+            <InAppChat
+              dentistId={dentist.id}
+              dentistName={dentist.name}
+              trigger={
+                <button className="flex items-center gap-2 rounded-lg bg-success/10 p-3 text-sm hover:bg-success/20 transition-colors">
+                  <MessageCircle className="h-4 w-4 text-success" />
+                  <span className="text-foreground">Chat Now</span>
+                </button>
+              }
+            />
           </div>
 
           {/* Clinic */}
@@ -119,10 +126,7 @@ const DentistProfile = () => {
 
           <div className="mt-8 space-y-3">
             <BookAppointmentDialog dentist={dentist} />
-            <Button variant="outline" size="lg" className="w-full" onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}?text=Hi, I'd like to book an appointment.`)}>
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Chat on WhatsApp
-            </Button>
+            <InAppChat dentistId={dentist.id} dentistName={dentist.name} />
           </div>
         </motion.div>
       </div>

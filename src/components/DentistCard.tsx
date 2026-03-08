@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import BookAppointmentDialog from "./BookAppointmentDialog";
+import InAppChat from "./InAppChat";
 import type { Dentist } from "@/data/dentists";
 
 const DentistCard = ({ dentist }: { dentist: Dentist }) => {
@@ -67,15 +68,16 @@ const DentistCard = ({ dentist }: { dentist: Dentist }) => {
             <Navigation className="h-3.5 w-3.5" />
             Directions
           </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="gap-1"
-            onClick={() => window.open(`https://wa.me/${dentist.whatsapp.replace(/[^0-9]/g, "")}`, "_blank")}
-          >
-            <MessageCircle className="h-3.5 w-3.5" />
-            Chat
-          </Button>
+          <InAppChat
+            dentistId={dentist.id}
+            dentistName={dentist.name}
+            trigger={
+              <Button size="sm" variant="outline" className="gap-1">
+                <MessageCircle className="h-3.5 w-3.5" />
+                Chat
+              </Button>
+            }
+          />
         </div>
       </div>
     </div>
