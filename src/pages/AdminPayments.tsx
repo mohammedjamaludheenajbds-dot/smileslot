@@ -86,9 +86,11 @@ const AdminPayments = () => {
     Promise.all([
       supabase.from("payments").select("*").order("created_at", { ascending: false }),
       supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
-    ]).then(([paymentsRes, appsRes]) => {
+      supabase.from("clinics").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes, clinicsRes]) => {
       setPayments((paymentsRes.data as Payment[]) || []);
       setApplications((appsRes.data as DoctorApplication[]) || []);
+      setClinicSubs((clinicsRes.data as ClinicSubmission[]) || []);
       setLoading(false);
     });
   }, [authenticated]);
