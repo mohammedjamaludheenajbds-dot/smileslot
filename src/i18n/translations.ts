@@ -141,7 +141,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "footer.contact": "Contact",
     "footer.disclaimer": "Disclaimer",
     "footer.disclaimerText": "Treatment costs are as per Indian Dental Association (IDA) guidelines. Actual costs may vary based on complexity. This platform is for pre-booking only.",
-    "footer.copyright": "© 2026 Erode Dental Pre-Booking. All rights reserved.",
+    "footer.copyright": "© 2026 Smile Slot. All rights reserved.",
 
     // Reminders
     "reminder.smart": "Smart Reminders",

@@ -33,11 +33,11 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="font-display text-lg font-bold text-primary-foreground">E</span>
+            <span className="font-display text-lg font-bold text-primary-foreground">S</span>
           </div>
           <div className="hidden sm:block">
-            <span className="font-display text-lg font-bold text-foreground">Erode</span>
-            <span className="font-display text-lg font-bold text-primary"> Dental</span>
+            <span className="font-display text-lg font-bold text-foreground">Smile</span>
+            <span className="font-display text-lg font-bold text-primary"> Slot</span>
           </div>
         </Link>
 

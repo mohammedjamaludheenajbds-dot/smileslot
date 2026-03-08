@@ -12,9 +12,9 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <span className="font-display text-sm font-bold text-primary-foreground">E</span>
-              </div>
-              <span className="font-display text-lg font-bold text-foreground">Erode Dental</span>
+              <span className="font-display text-sm font-bold text-primary-foreground">S</span>
+            </div>
+            <span className="font-display text-lg font-bold text-foreground">Smile Slot</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
               Your trusted dental pre-booking platform for Erode district, Tamil Nadu.
