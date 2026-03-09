@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IndianRupee, CheckCircle, Copy, Loader2, Smartphone, Hash } from "lucide-react";
+import { IndianRupee, CheckCircle, Copy, Loader2, Smartphone, Hash, Stethoscope, Star, Shield, Clock, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
