@@ -112,11 +112,13 @@ const AdminPayments = () => {
       supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
       supabase.from("clinics").select("*").order("created_at", { ascending: false }),
       supabase.from("visitors").select("*").order("created_at", { ascending: false }),
-    ]).then(([paymentsRes, appsRes, clinicsRes, visitorsRes]) => {
+      supabase.from("home_consultations").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes, clinicsRes, visitorsRes, consultRes]) => {
       setPayments((paymentsRes.data as Payment[]) || []);
       setApplications((appsRes.data as DoctorApplication[]) || []);
       setClinicSubs((clinicsRes.data as ClinicSubmission[]) || []);
       setVisitors((visitorsRes.data as Visitor[]) || []);
+      setConsultations((consultRes.data as HomeConsultation[]) || []);
       setLoading(false);
     });
   }, [authenticated]);
