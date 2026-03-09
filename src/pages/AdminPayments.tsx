@@ -560,6 +560,78 @@ const AdminPayments = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="consultations">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Home Consultation Requests</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <p className="py-8 text-center text-muted-foreground">Loading...</p>
+              ) : consultations.length === 0 ? (
+                <p className="py-8 text-center text-muted-foreground">No consultation requests yet</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Phone</TableHead>
+                        <TableHead>Age/Sex</TableHead>
+                        <TableHead>Condition</TableHead>
+                        <TableHead>Treatment</TableHead>
+                        <TableHead>Address</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {consultations.map((c, i) => (
+                        <TableRow key={c.id}>
+                          <TableCell className="font-medium text-muted-foreground">{i + 1}</TableCell>
+                          <TableCell className="font-medium">{c.name}</TableCell>
+                          <TableCell>{c.phone}</TableCell>
+                          <TableCell>{c.age} / {c.sex}</TableCell>
+                          <TableCell className="max-w-[150px] truncate">{c.condition}</TableCell>
+                          <TableCell className="max-w-[150px] truncate">{c.treatment_required}</TableCell>
+                          <TableCell className="max-w-[180px] truncate">{c.address}</TableCell>
+                          <TableCell>
+                            <Badge variant={c.status === "approved" ? "default" : c.status === "rejected" ? "destructive" : "secondary"}>
+                              {c.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
+                              {c.status === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
+                              {c.status === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
+                              {c.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground">
+                            {format(new Date(c.created_at), "dd MMM yyyy")}
+                          </TableCell>
+                          <TableCell>
+                            {c.status === "pending" ? (
+                              <div className="flex gap-2">
+                                <Button size="sm" onClick={() => handleConsultationAction(c.id, "approved")}>
+                                  <CheckCircle className="mr-1 h-3 w-3" /> Approve
+                                </Button>
+                                <Button size="sm" variant="destructive" onClick={() => handleConsultationAction(c.id, "rejected")}>
+                                  <XCircle className="mr-1 h-3 w-3" /> Reject
+                                </Button>
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
