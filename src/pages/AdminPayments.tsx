@@ -54,6 +54,19 @@ interface Visitor {
   created_at: string;
 }
 
+interface HomeConsultation {
+  id: string;
+  name: string;
+  phone: string;
+  age: number;
+  sex: string;
+  address: string;
+  condition: string;
+  treatment_required: string;
+  status: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
