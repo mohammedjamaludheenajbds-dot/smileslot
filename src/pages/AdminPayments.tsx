@@ -75,6 +75,7 @@ const AdminPayments = () => {
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
   const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
   const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const [consultations, setConsultations] = useState<HomeConsultation[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
