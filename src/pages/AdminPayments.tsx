@@ -344,6 +344,14 @@ const AdminPayments = () => {
               </span>
             )}
           </TabsTrigger>
+          <TabsTrigger value="consultations" className="relative">
+            Home Consultations
+            {pendingConsultations.length > 0 && (
+              <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                {pendingConsultations.length}
+              </span>
+            )}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="payments">
