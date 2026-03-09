@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, IndianRupee, Users, Search, Lock, Stethoscope, CheckCircle, XCircle, Clock, Building2 } from "lucide-react";
+import { Shield, IndianRupee, Users, Search, Lock, Stethoscope, CheckCircle, XCircle, Clock, Building2, Eye, TrendingUp } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
@@ -47,6 +47,13 @@ interface ClinicSubmission {
   created_at: string;
 }
 
+interface Visitor {
+  id: string;
+  device_id: string;
+  page: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
@@ -54,6 +61,7 @@ const AdminPayments = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
   const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
+  const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -89,10 +97,12 @@ const AdminPayments = () => {
       supabase.from("payments").select("*").order("created_at", { ascending: false }),
       supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
       supabase.from("clinics").select("*").order("created_at", { ascending: false }),
-    ]).then(([paymentsRes, appsRes, clinicsRes]) => {
+      supabase.from("visitors").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes, clinicsRes, visitorsRes]) => {
       setPayments((paymentsRes.data as Payment[]) || []);
       setApplications((appsRes.data as DoctorApplication[]) || []);
       setClinicSubs((clinicsRes.data as ClinicSubmission[]) || []);
+      setVisitors((visitorsRes.data as Visitor[]) || []);
       setLoading(false);
     });
   }, [authenticated]);
@@ -105,6 +115,10 @@ const AdminPayments = () => {
   );
 
   const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
+  const totalVisitors = visitors.length;
+  const uniqueVisitors = new Set(visitors.map((v) => v.device_id)).size;
+  const todayVisitors = visitors.filter((v) => new Date(v.created_at).toDateString() === new Date().toDateString()).length;
+  const conversionRate = uniqueVisitors > 0 ? ((payments.length / uniqueVisitors) * 100).toFixed(1) : "0";
 
   if (!authenticated) {
     return (
@@ -233,6 +247,41 @@ const AdminPayments = () => {
             <div>
               <p className="text-sm text-muted-foreground">Pending Clinics</p>
               <p className="text-2xl font-bold text-foreground">{pendingClinics.length}</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Eye className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Total Visits</p>
+              <p className="text-2xl font-bold text-foreground">{totalVisitors}</p>
+              <p className="text-xs text-muted-foreground">{uniqueVisitors} unique</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Eye className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Today's Visitors</p>
+              <p className="text-2xl font-bold text-foreground">{todayVisitors}</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <TrendingUp className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Conversion Rate</p>
+              <p className="text-2xl font-bold text-foreground">{conversionRate}%</p>
+              <p className="text-xs text-muted-foreground">visitors → paid</p>
             </div>
           </CardContent>
         </Card>
