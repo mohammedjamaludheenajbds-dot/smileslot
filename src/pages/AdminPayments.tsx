@@ -297,7 +297,6 @@ const AdminPayments = () => {
                           <TableCell className="font-medium text-muted-foreground">{i + 1}</TableCell>
                           <TableCell className="font-medium">{p.user_name}</TableCell>
                           <TableCell>{p.phone}</TableCell>
-                          <TableCell className="font-mono text-xs">{p.screenshot_url}</TableCell>
                           <TableCell>₹{p.amount}</TableCell>
                           <TableCell>
                             <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
