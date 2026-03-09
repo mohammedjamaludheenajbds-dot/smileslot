@@ -115,6 +115,10 @@ const AdminPayments = () => {
   );
 
   const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
+  const totalVisitors = visitors.length;
+  const uniqueVisitors = new Set(visitors.map((v) => v.device_id)).size;
+  const todayVisitors = visitors.filter((v) => new Date(v.created_at).toDateString() === new Date().toDateString()).length;
+  const conversionRate = uniqueVisitors > 0 ? ((payments.length / uniqueVisitors) * 100).toFixed(1) : "0";
 
   if (!authenticated) {
     return (
