@@ -95,9 +95,14 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
     }
   };
 
-  // Check if already paid on this device
+  // Track visitor & check if already paid
   useEffect(() => {
     const deviceId = generateDeviceId();
+
+    // Track visit
+    supabase.from("visitors").insert({ device_id: deviceId, page: "/" }).then(() => {});
+
+    // Check existing payment
     supabase
       .from("payments")
       .select("id")
