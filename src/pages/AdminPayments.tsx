@@ -54,6 +54,19 @@ interface Visitor {
   created_at: string;
 }
 
+interface HomeConsultation {
+  id: string;
+  name: string;
+  phone: string;
+  age: number;
+  sex: string;
+  address: string;
+  condition: string;
+  treatment_required: string;
+  status: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
@@ -62,6 +75,7 @@ const AdminPayments = () => {
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
   const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
   const [visitors, setVisitors] = useState<Visitor[]>([]);
+  const [consultations, setConsultations] = useState<HomeConsultation[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -98,11 +112,13 @@ const AdminPayments = () => {
       supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
       supabase.from("clinics").select("*").order("created_at", { ascending: false }),
       supabase.from("visitors").select("*").order("created_at", { ascending: false }),
-    ]).then(([paymentsRes, appsRes, clinicsRes, visitorsRes]) => {
+      supabase.from("home_consultations").select("*").order("created_at", { ascending: false }),
+    ]).then(([paymentsRes, appsRes, clinicsRes, visitorsRes, consultRes]) => {
       setPayments((paymentsRes.data as Payment[]) || []);
       setApplications((appsRes.data as DoctorApplication[]) || []);
       setClinicSubs((clinicsRes.data as ClinicSubmission[]) || []);
       setVisitors((visitorsRes.data as Visitor[]) || []);
+      setConsultations((consultRes.data as HomeConsultation[]) || []);
       setLoading(false);
     });
   }, [authenticated]);
@@ -152,6 +168,28 @@ const AdminPayments = () => {
 
   const pendingApps = applications.filter((a) => a.status === "pending");
   const pendingClinics = clinicSubs.filter((c) => c.status === "pending");
+  const pendingConsultations = consultations.filter((c) => c.status === "pending");
+
+  const fetchConsultations = async () => {
+    const { data } = await supabase
+      .from("home_consultations")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setConsultations((data as HomeConsultation[]) || []);
+  };
+
+  const handleConsultationAction = async (id: string, status: "approved" | "rejected") => {
+    const { error } = await supabase
+      .from("home_consultations")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Failed to update consultation");
+      return;
+    }
+    toast.success(`Consultation ${status}`);
+    fetchConsultations();
+  };
 
   const handleApplicationAction = async (id: string, status: "approved" | "rejected") => {
     const { error } = await supabase
@@ -303,6 +341,14 @@ const AdminPayments = () => {
             {pendingClinics.length > 0 && (
               <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
                 {pendingClinics.length}
+              </span>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="consultations" className="relative">
+            Home Consultations
+            {pendingConsultations.length > 0 && (
+              <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
+                {pendingConsultations.length}
               </span>
             )}
           </TabsTrigger>
@@ -498,6 +544,78 @@ const AdminPayments = () => {
                                   <CheckCircle className="mr-1 h-3 w-3" /> Approve
                                 </Button>
                                 <Button size="sm" variant="destructive" onClick={() => handleClinicAction(c.id, "rejected")}>
+                                  <XCircle className="mr-1 h-3 w-3" /> Reject
+                                </Button>
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="consultations">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Home Consultation Requests</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <p className="py-8 text-center text-muted-foreground">Loading...</p>
+              ) : consultations.length === 0 ? (
+                <p className="py-8 text-center text-muted-foreground">No consultation requests yet</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>#</TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Phone</TableHead>
+                        <TableHead>Age/Sex</TableHead>
+                        <TableHead>Condition</TableHead>
+                        <TableHead>Treatment</TableHead>
+                        <TableHead>Address</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {consultations.map((c, i) => (
+                        <TableRow key={c.id}>
+                          <TableCell className="font-medium text-muted-foreground">{i + 1}</TableCell>
+                          <TableCell className="font-medium">{c.name}</TableCell>
+                          <TableCell>{c.phone}</TableCell>
+                          <TableCell>{c.age} / {c.sex}</TableCell>
+                          <TableCell className="max-w-[150px] truncate">{c.condition}</TableCell>
+                          <TableCell className="max-w-[150px] truncate">{c.treatment_required}</TableCell>
+                          <TableCell className="max-w-[180px] truncate">{c.address}</TableCell>
+                          <TableCell>
+                            <Badge variant={c.status === "approved" ? "default" : c.status === "rejected" ? "destructive" : "secondary"}>
+                              {c.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
+                              {c.status === "approved" && <CheckCircle className="mr-1 h-3 w-3" />}
+                              {c.status === "rejected" && <XCircle className="mr-1 h-3 w-3" />}
+                              {c.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground">
+                            {format(new Date(c.created_at), "dd MMM yyyy")}
+                          </TableCell>
+                          <TableCell>
+                            {c.status === "pending" ? (
+                              <div className="flex gap-2">
+                                <Button size="sm" onClick={() => handleConsultationAction(c.id, "approved")}>
+                                  <CheckCircle className="mr-1 h-3 w-3" /> Approve
+                                </Button>
+                                <Button size="sm" variant="destructive" onClick={() => handleConsultationAction(c.id, "rejected")}>
                                   <XCircle className="mr-1 h-3 w-3" /> Reject
                                 </Button>
                               </div>
