@@ -47,6 +47,13 @@ interface ClinicSubmission {
   created_at: string;
 }
 
+interface Visitor {
+  id: string;
+  device_id: string;
+  page: string;
+  created_at: string;
+}
+
 const AdminPayments = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [pin, setPin] = useState("");
@@ -54,6 +61,7 @@ const AdminPayments = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [applications, setApplications] = useState<DoctorApplication[]>([]);
   const [clinicSubs, setClinicSubs] = useState<ClinicSubmission[]>([]);
+  const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
