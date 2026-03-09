@@ -12,8 +12,7 @@ const Index = () => {
 
   const stats = [
     { icon: Users, label: t("stats.dentists"), value: "50+" },
-    { icon: Star, label: t("stats.reviews"), value: "2000+" },
-    { icon: Calendar, label: t("stats.appointments"), value: "10,000+" },
+    { icon: Star, label: t("stats.reviews"), value: "200+" },
     { icon: Shield, label: t("stats.verified"), value: "100%" },
   ];
 
