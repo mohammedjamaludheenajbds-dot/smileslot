@@ -286,7 +286,6 @@ const AdminPayments = () => {
                         <TableHead>#</TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>Phone</TableHead>
-                        <TableHead>Txn ID</TableHead>
                         <TableHead>Amount</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Date & Time</TableHead>
