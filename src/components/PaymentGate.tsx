@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IndianRupee, CheckCircle, Copy, Loader2, Smartphone, Hash } from "lucide-react";
+import { IndianRupee, CheckCircle, Copy, Loader2, Smartphone, Hash, Stethoscope, Star, Shield, Clock, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -124,27 +124,68 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md space-y-6 rounded-2xl border bg-card p-6 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
+      <div className="w-full max-w-md space-y-5 rounded-2xl border bg-card p-6 shadow-lg">
+        {/* App Header */}
         <div className="text-center">
           <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-            <IndianRupee className="h-8 w-8 text-primary" />
+            <Stethoscope className="h-8 w-8 text-primary" />
           </div>
           <h1 className="font-display text-2xl font-bold text-foreground">Smile Slot</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Your trusted dental care companion</p>
+          <p className="mt-1 text-sm text-muted-foreground">India's Smart Dental Care Platform</p>
         </div>
 
-        <div className="rounded-xl border bg-muted/30 p-4 space-y-2 text-sm text-muted-foreground">
-          <p className="font-semibold text-foreground text-base">What you get with Smile Slot:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Browse & book appointments with top dentists near you</li>
-            <li>Access detailed dentist profiles, reviews & ratings</li>
-            <li>In-app chat with dental clinics</li>
-            <li>AI-powered dental health assistant</li>
-            <li>Medication reminders & patient records</li>
-            <li>Home consultation booking</li>
-          </ul>
-          <p className="pt-1 text-xs italic">One-time payment of ₹{AMOUNT} — lifetime access, no hidden charges.</p>
+        {/* App Description */}
+        <div className="rounded-xl border bg-muted/30 p-4 space-y-3 text-sm text-muted-foreground">
+          <p className="text-foreground text-center text-sm">
+            Smile Slot connects you with verified dental professionals across India. 
+            Book appointments, chat with clinics, and manage your oral health — all in one app.
+          </p>
+        </div>
+
+        {/* Feature Grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="flex items-start gap-2 rounded-lg border bg-muted/20 p-3">
+            <Calendar className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-foreground">Easy Booking</p>
+              <p className="text-xs text-muted-foreground">Book appointments with top dentists near you</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 rounded-lg border bg-muted/20 p-3">
+            <Star className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-foreground">Verified Reviews</p>
+              <p className="text-xs text-muted-foreground">Real patient ratings & video reviews</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 rounded-lg border bg-muted/20 p-3">
+            <MessageCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-foreground">Chat & AI Help</p>
+              <p className="text-xs text-muted-foreground">In-app chat with clinics & AI dental assistant</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 rounded-lg border bg-muted/20 p-3">
+            <Shield className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-foreground">Health Records</p>
+              <p className="text-xs text-muted-foreground">Medication reminders & patient records</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional highlights */}
+        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> Home visits available</span>
+          <span className="flex items-center gap-1"><IndianRupee className="h-3 w-3" /> EMI options</span>
+          <span className="flex items-center gap-1"><Shield className="h-3 w-3" /> 100% Secure</span>
+        </div>
+
+        {/* Payment Section Divider */}
+        <div className="border-t pt-4 text-center">
+          <p className="text-sm font-semibold text-foreground">Unlock Full Access</p>
+          <p className="text-xs text-muted-foreground">One-time payment of ₹{AMOUNT} — lifetime access, no hidden charges</p>
         </div>
 
         {step === "pay" && (
