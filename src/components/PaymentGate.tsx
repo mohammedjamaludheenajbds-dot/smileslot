@@ -131,7 +131,20 @@ const PaymentGate = ({ onVerified }: { onVerified: () => void }) => {
             <IndianRupee className="h-8 w-8 text-primary" />
           </div>
           <h1 className="font-display text-2xl font-bold text-foreground">Smile Slot</h1>
-          <p className="mt-1 text-muted-foreground">One-time access fee of ₹{AMOUNT}</p>
+          <p className="mt-1 text-sm text-muted-foreground">Your trusted dental care companion</p>
+        </div>
+
+        <div className="rounded-xl border bg-muted/30 p-4 space-y-2 text-sm text-muted-foreground">
+          <p className="font-semibold text-foreground text-base">What you get with Smile Slot:</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li>Browse & book appointments with top dentists near you</li>
+            <li>Access detailed dentist profiles, reviews & ratings</li>
+            <li>In-app chat with dental clinics</li>
+            <li>AI-powered dental health assistant</li>
+            <li>Medication reminders & patient records</li>
+            <li>Home consultation booking</li>
+          </ul>
+          <p className="pt-1 text-xs italic">One-time payment of ₹{AMOUNT} — lifetime access, no hidden charges.</p>
         </div>
 
         {step === "pay" && (
