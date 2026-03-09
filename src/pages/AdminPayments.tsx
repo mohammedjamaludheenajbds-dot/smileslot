@@ -168,6 +168,28 @@ const AdminPayments = () => {
 
   const pendingApps = applications.filter((a) => a.status === "pending");
   const pendingClinics = clinicSubs.filter((c) => c.status === "pending");
+  const pendingConsultations = consultations.filter((c) => c.status === "pending");
+
+  const fetchConsultations = async () => {
+    const { data } = await supabase
+      .from("home_consultations")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setConsultations((data as HomeConsultation[]) || []);
+  };
+
+  const handleConsultationAction = async (id: string, status: "approved" | "rejected") => {
+    const { error } = await supabase
+      .from("home_consultations")
+      .update({ status })
+      .eq("id", id);
+    if (error) {
+      toast.error("Failed to update consultation");
+      return;
+    }
+    toast.success(`Consultation ${status}`);
+    fetchConsultations();
+  };
 
   const handleApplicationAction = async (id: string, status: "approved" | "rejected") => {
     const { error } = await supabase
