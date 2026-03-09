@@ -250,6 +250,41 @@ const AdminPayments = () => {
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Eye className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Total Visits</p>
+              <p className="text-2xl font-bold text-foreground">{totalVisitors}</p>
+              <p className="text-xs text-muted-foreground">{uniqueVisitors} unique</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Eye className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Today's Visitors</p>
+              <p className="text-2xl font-bold text-foreground">{todayVisitors}</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-center gap-4 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <TrendingUp className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Conversion Rate</p>
+              <p className="text-2xl font-bold text-foreground">{conversionRate}%</p>
+              <p className="text-xs text-muted-foreground">visitors → paid</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs defaultValue="payments" className="space-y-4">
